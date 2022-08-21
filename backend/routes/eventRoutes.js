@@ -1,20 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const {getEvents, setEvents, updateEvents, deleteEvents} = require('../controllers/eventController')
 
-router.get('/', (req,res) => {
-    res.status(200).json({ message: 'Get events'})
-})
-
-router.post('/', (req,res) => {
-    res.status(200).json({ message: 'Set event'})
-})
-
-router.put('/:id', (req,res) => {
-    res.status(200).json({ message: `Update goal ${req.params.id}`})
-})
-
-router.delete('/:id', (req,res) => {
-    res.status(200).json({ message: `Delete goal ${req.params.id}`})
-})
+router.route('/').get(getEvents).post(setEvents)
+router.route('/:id').put(updateEvents).delete(deleteEvents)
+//router.get('/', getEvents)
 
 module.exports = router
