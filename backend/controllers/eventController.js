@@ -9,6 +9,10 @@ const getEvents = (req, res) => {
 // @route POST /api/events
 // @access Public
 const setEvents = (req, res) => {
+    if(!req.body.text){
+        res.status(400).json({message: 'Please add a text field'})
+    }
+
     res.status(200).json({ message: 'Set event'})
 }
 
