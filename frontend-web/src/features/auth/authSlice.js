@@ -9,19 +9,27 @@ const initialState = {
     isError: false,
     isSuccess: false,
     isLoading: false,
-    message: ''
+    message: '',
 }
 
-// Register User
-export const register = createAsyncThunk('auth/register', 
-async (user, thunkAPI) => {
-    try {
-        return await authService.register(user)
-    } catch (error) {
-        const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString()
-        return thunkAPI.rejectWithValue(message)
+// Register user
+export const register = createAsyncThunk(
+    'auth/register', 
+    async (user, thunkAPI) => {
+        try {
+            return await authService.register(user)
+        } catch (error) {
+            const message = (
+                error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+                error.message ||
+                error.toString()
+            
+            return thunkAPI.rejectWithValue(message)
+        }
     }
-})
+)
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -32,7 +40,7 @@ export const authSlice = createSlice({
             state.isSuccess = false
             state.isError = false
             state.message = ''
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
