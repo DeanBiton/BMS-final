@@ -15,6 +15,17 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, 'Please add a password'],
     },
+    isMedicalOrganization: {
+      type: Boolean,
+      require: true,
+      default: false,
+    },
+    bloodType: {
+      type: String,
+      enum: ['None', 'Not specified', 'O-', 'O+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
+      require: true,
+      default: 'Not specified',
+    }
   },
   {
     timestamps: true,
