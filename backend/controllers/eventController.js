@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Event = require('../models/eventModel')
+const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 
 // @desc Get Events
 // @route GET /api/events
@@ -11,6 +12,65 @@ const getEvents = asyncHandler(async (req, res) => {
     res.status(200).json(events)
 })
 
+// @desc Set Event
+// @route POST /api/events/
+// @access Private
+const setEvent = asyncHandler(async (req, res) => {
+    
+    // in react end change body.user to user
+    /*
+    in react change:
+        body.user_id -> user.id
+        body.user_isMedicalOrganization -> user.isMedicalOrganization
+    */ 
+
+    // Check for user
+    /*
+    if (!req.body.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+*/
+    // Make sure the logged in user is a medical organization
+    if (req.body.user_isMedicalOrganization == "false") {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
+    const bloodTypeRegisters = await BloodTypeTrack.create({});
+    const bloodTypeDemands = await BloodTypeTrack.create({});
+
+    const event = await Event.create({
+    medicalOrganization: req.body.user_id,
+    date: req.body.date,
+    location: req.body.location,
+    bloodTypeRegisters: bloodTypeRegisters._id,
+    bloodTypeDemands: bloodTypeDemands._id,
+    })
+    res.status(200).json(event)
+})
+/*
+// @desc Update Event
+// @route PUT /api/events/:id
+// @access Private
+const updateEvents = asyncHandler(async (req, res) => {
+    const event = await Event.findById(req.params.id)
+
+    if(!event){
+        res.status(400)
+        throw new Error("Event not found")
+    }
+
+    const updatedEvent = await Event.findByIdAndUpdate(
+        req.params.id, 
+        req.body,
+        {new: true}
+    )
+
+    res.status(200).json(updatedEvent)
+})
+*/
+/*
 // @desc Set Event
 // @route POST /api/events
 // @access Public
@@ -66,4 +126,9 @@ const deleteEvents = asyncHandler(async (req, res) => {
 
 module.exports = {
     getEvents, setEvents, updateEvents, deleteEvents
+}
+*/
+
+module.exports = {
+    setEvent,getEvents,
 }
