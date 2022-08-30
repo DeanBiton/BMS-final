@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {setEvent, getEvents} = require('../controllers/eventController')
+const {setEvent, getEvents, updateEvent, deleteEvent} = require('../controllers/eventController')
 /*
 const {getEvents, setEvents, updateEvents, deleteEvents} = require('../controllers/eventController')
 
@@ -10,6 +10,9 @@ router.route('/:id').put(updateEvents).delete(deleteEvents)*/
 
 const { protect } = require('../middleware/authMiddleware')
 
-router.route('/').get(getEvents).post(setEvent)
+//router.route('/').get(getEvents).post(setEvent)
+
+router.route('/').get(protect, getGoals).post(protect, setGoal)
+router.route('/:id').delete(protect, deleteGoal).put(protect, updateGoal)
 
 module.exports = router
