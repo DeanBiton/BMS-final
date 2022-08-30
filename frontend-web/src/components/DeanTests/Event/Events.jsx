@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../../Spinner'
-import { reset } from '../../../features/events/eventSlice'
+import { getEvents, reset } from '../../../features/events/eventSlice'
 
 function Events() {
     const navigate = useNavigate()
@@ -12,6 +12,8 @@ function Events() {
     const { events, isLoading, isError, message } = useSelector(
         (state) => state.events
     )
+    
+    console.log(events)
 
     useEffect(() => {
         if (isError) {
@@ -23,7 +25,7 @@ function Events() {
         }
         else
         {
-          //dispatch(getGoals())
+          dispatch(getEvents())
         }
     
         return () => {

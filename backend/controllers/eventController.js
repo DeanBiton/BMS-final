@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-
+const helper = require('../helper')
 const Event = require('../models/eventModel')
 const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 
@@ -7,7 +7,29 @@ const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 // @route GET /api/events
 // @access Public
 const getEvents = asyncHandler(async (req, res) => {
-    const events = await Event.find()
+    let events = await Event.find()
+
+    events = await Promise.all(events.map(async event => { 
+        let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString()).exec()
+        let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString()).exec()
+
+        console.log(bloodTypeRegisters)
+
+        bloodTypeRegisters = await helper.removeMongooseExtras(bloodTypeRegisters)
+        bloodTypeDemands = await helper.removeMongooseExtras(bloodTypeDemands)
+
+        console.log(bloodTypeRegisters)
+
+        let newEvent = {
+            ...event._doc,
+            bloodTypeRegisters: bloodTypeRegisters,
+            bloodTypeDemands: bloodTypeDemands,
+        }
+
+        newEvent = helper.removeMongooseExtras(newEvent)
+
+        return newEvent
+        }))
 
     res.status(200).json(events)
 })
