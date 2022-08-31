@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../../Spinner'
 import { getEvents, reset } from '../../../features/events/eventSlice'
+import EventForm from './EventForm'
 
 function Events() {
     const navigate = useNavigate()
@@ -13,8 +14,6 @@ function Events() {
         (state) => state.events
     )
     
-    console.log(events)
-
     useEffect(() => {
         if (isError) {
           console.log(message)
@@ -43,6 +42,8 @@ function Events() {
             <h1>Welcome {user && user.name}</h1>
             <p>Events Dashboard</p>
             </section>
+
+            <EventForm />
         </>
     )
 }

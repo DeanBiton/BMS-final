@@ -13,12 +13,8 @@ const getEvents = asyncHandler(async (req, res) => {
         let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString()).exec()
         let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString()).exec()
 
-        console.log(bloodTypeRegisters)
-
         bloodTypeRegisters = await helper.removeMongooseExtras(bloodTypeRegisters)
         bloodTypeDemands = await helper.removeMongooseExtras(bloodTypeDemands)
-
-        console.log(bloodTypeRegisters)
 
         let newEvent = {
             ...event._doc,
@@ -38,32 +34,33 @@ const getEvents = asyncHandler(async (req, res) => {
 // @route POST /api/events/
 // @access Private
 const setEvent = asyncHandler(async (req, res) => {
-    
-    // in react end change body.user to user
-    /*
-    in react change:
-        body.user_id -> user.id
-        body.user_isMedicalOrganization -> user.isMedicalOrganization
-    */ 
 
-    // Check for user
-    /*
-    if (!req.body.user) {
+    // Check for user    
+    if (!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
-*/
+
     // Make sure the logged in user is a medical organization
-    if (req.body.user_isMedicalOrganization == "false") {
+    if (!req.user.isMedicalOrganization) {
         res.status(401)
         throw new Error('User not authorized')
     }
 
     const bloodTypeRegisters = await BloodTypeTrack.create({});
-    const bloodTypeDemands = await BloodTypeTrack.create({});
+    const bloodTypeDemands = await BloodTypeTrack.create({
+        'O-': req.body['O-'], 
+        'O+': req.body['O+'], 
+        'A-': req.body['A-'], 
+        'A+': req.body['A+'],
+        'B-': req.body['B-'], 
+        'B+': req.body['B+'], 
+        'AB-': req.body['AB-'], 
+        'AB+': req.body['AB+'],
+    });
 
     const event = await Event.create({
-    medicalOrganization: req.body.user_id,
+    medicalOrganization: req.user.id,
     date: req.body.date,
     location: req.body.location,
     bloodTypeRegisters: bloodTypeRegisters._id,
@@ -76,6 +73,19 @@ const setEvent = asyncHandler(async (req, res) => {
 // @route PUT /api/events/:id
 // @access Private
 const updateEvent = asyncHandler(async (req, res) => {
+    
+    // Check for user    
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user is a medical organization
+    if (!req.user.isMedicalOrganization) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+    
     const event = await Event.findById(req.params.id)
 
     if(!event){
@@ -83,13 +93,23 @@ const updateEvent = asyncHandler(async (req, res) => {
         throw new Error("Event not found")
     }
 
-    const updatedEvent = await Event.findByIdAndUpdate(
-        req.params.id, 
-        req.body,
-        {new: true}
-    )
+    const bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands)
 
-    res.status(200).json(updatedEvent)
+    const updatedBloodTypeDemands = await BloodTypeTrack.findByIdAndUpdate(
+        bloodTypeDemands, 
+        {
+            'O-': req.body['O-'], 
+            'O+': req.body['O+'], 
+            'A-': req.body['A-'], 
+            'A+': req.body['A+'],
+            'B-': req.body['B-'], 
+            'B+': req.body['B+'], 
+            'AB-': req.body['AB-'], 
+            'AB+': req.body['AB+'],
+        }
+    )
+    
+    res.status(200).json(event)
 })
 
 // @desc Delete Event
