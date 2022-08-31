@@ -116,6 +116,19 @@ const updateEvent = asyncHandler(async (req, res) => {
 // @route DELETE /api/events/:id
 // @access Private
 const deleteEvent = asyncHandler(async (req, res) => {
+
+    // Check for user    
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    // Make sure the logged in user is a medical organization
+    if (!req.user.isMedicalOrganization) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
     const event = await Event.findById(req.params.id)
 
     if(!event){
@@ -123,6 +136,11 @@ const deleteEvent = asyncHandler(async (req, res) => {
         throw new Error("Event not found")
     }
 
+    const bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+    const bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands)
+
+    await bloodTypeRegisters.remove()
+    await bloodTypeDemands.remove()
     await event.remove()
 
     res.status(200).json({ id: req.params.id})

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createEvent, updateEvent } from '../../../features/events/eventSlice'
+import { createEvent, updateEvent, deleteEvent } from '../../../features/events/eventSlice'
 
 function EventForm() {
     const dispatch = useDispatch()
@@ -66,6 +66,28 @@ function EventForm() {
         console.log(formData2)
     }
     
+    const [formData3, setFormData3] = useState(
+        {
+            id: "",
+        }
+    )
+
+    function handleChange3(event) {
+        const {name, value} = event.target
+        setFormData3(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+            }
+        })
+    }
+
+    function handleSubmit3(event) {
+        event.preventDefault()
+        dispatch(deleteEvent(formData3))
+        console.log(formData3)
+    }
+
     return (
         <>
             <form onSubmit={handleSubmit}>
@@ -210,6 +232,19 @@ function EventForm() {
                     value={formData2['AB+']}
                 />
                 
+                <br />
+                <br />
+                <button>Submit</button>
+            </form>
+
+            <form onSubmit={handleSubmit3}>
+                <input
+                    type="text"
+                    placeholder="Event ID"
+                    onChange={handleChange3}
+                    name="id"
+                    value={formData3.id}
+                />
                 <br />
                 <br />
                 <button>Submit</button>
