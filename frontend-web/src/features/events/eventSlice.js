@@ -28,7 +28,7 @@ export const createEvent = createAsyncThunk(
   }
 )
 
-// Get user events
+// Get events
 export const getEvents = createAsyncThunk(
     'events/getAll',
     async (_, thunkAPI) => {

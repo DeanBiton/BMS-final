@@ -2,13 +2,18 @@ import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import Spinner from '../../Spinner'
+import {getRegisters, reset } from '../../../features/registers/registerSlice'
+import RegisterForm from './RegisterForm'
 
 function Registers() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const { user } = useSelector((state) => state.auth)
-/*
+    const { registers, isLoading, isError, message } = useSelector(
+        (state) => state.registers
+    )
+
     useEffect(() => {
         if (isError) {
           console.log(message)
@@ -19,17 +24,17 @@ function Registers() {
         }
         else
         {
-          dispatch(getEvents())
+          dispatch(getRegisters())
         }
     
         return () => {
           dispatch(reset())
         }
     }, [user, navigate, isError, message, dispatch])
-*/
-    /*if (isLoading) {
+
+    if (isLoading) {
         return <Spinner />
-    }*/
+    }
 
     return (
         <>
@@ -38,7 +43,7 @@ function Registers() {
             <p>Registers Dashboard</p>
             </section>
 
-            
+            <RegisterForm />
         </>
     )
 }

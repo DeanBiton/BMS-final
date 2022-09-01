@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-const helper = require('../helper')
+const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
 const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 
@@ -13,8 +13,10 @@ const getEvents = asyncHandler(async (req, res) => {
         let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString()).exec()
         let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString()).exec()
 
-        bloodTypeRegisters = await helper.removeMongooseExtras(bloodTypeRegisters)
-        bloodTypeDemands = await helper.removeMongooseExtras(bloodTypeDemands)
+        //bloodTypeRegisters = await helper.removeMongooseExtras(bloodTypeRegisters)
+        //bloodTypeDemands = await helper.removeMongooseExtras(bloodTypeDemands)
+        bloodTypeRegisters = helper.removeMongooseExtras(bloodTypeRegisters)
+        helper.removeMongooseExtras(bloodTypeDemands)
 
         let newEvent = {
             ...event._doc,
@@ -23,6 +25,7 @@ const getEvents = asyncHandler(async (req, res) => {
         }
 
         newEvent = helper.removeMongooseExtras(newEvent)
+        helper.removeMongooseExtras(newEvent)
 
         return newEvent
         }))
@@ -35,17 +38,7 @@ const getEvents = asyncHandler(async (req, res) => {
 // @access Private
 const setEvent = asyncHandler(async (req, res) => {
 
-    // Check for user    
-    if (!req.user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Make sure the logged in user is a medical organization
-    if (!req.user.isMedicalOrganization) {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
+    helper.checkAuthorization(req, res, true)
 
     const bloodTypeRegisters = await BloodTypeTrack.create({});
     const bloodTypeDemands = await BloodTypeTrack.create({
@@ -74,17 +67,7 @@ const setEvent = asyncHandler(async (req, res) => {
 // @access Private
 const updateEvent = asyncHandler(async (req, res) => {
     
-    // Check for user    
-    if (!req.user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Make sure the logged in user is a medical organization
-    if (!req.user.isMedicalOrganization) {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
+    helper.checkAuthorization(req, res, true)
     
     const event = await Event.findById(req.params.id)
 
@@ -117,17 +100,7 @@ const updateEvent = asyncHandler(async (req, res) => {
 // @access Private
 const deleteEvent = asyncHandler(async (req, res) => {
 
-    // Check for user    
-    if (!req.user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Make sure the logged in user is a medical organization
-    if (!req.user.isMedicalOrganization) {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
+    helper.checkAuthorization(req, res, true)
 
     const event = await Event.findById(req.params.id)
 

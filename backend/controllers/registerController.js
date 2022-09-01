@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const Register = require('../models/registerModel')
+const helper = require('./controllerHelper/helper')
 
 // @desc Get all Events registered
 // @route GET /api/registers
@@ -17,27 +18,52 @@ const getRegisters = asyncHandler(async (req, res) => {
 // @route POST /api/registers
 // @access Private
 const setRegister = asyncHandler(async (req, res) => {
+    helper.checkAuthorization(req, res, false)
 
-    // Check for user    
-    if (!req.user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-
-    // Make sure the logged in user is NOT a medical organization
-    if (req.user.isMedicalOrganization) {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
-
-    const register = await Register.create({
+    // check if already registered
+    const existedRegister = await Register.find({
         user: req.user.id,
         event: req.body.eventId,
     })
 
-    res.status(200).json(register)
+    if(existedRegister.length) {
+        res.status(401)
+        throw new Error('User already registered')
+    }
+
+    // create new register
+    let register = await Register.create({
+        user: req.user.id,
+        event: req.body.eventId,
+    })
+
+    res.status(200).json(register.event)
+})
+
+// @desc Delete Register
+// @route DELETE /api/registers
+// @access Private
+const deleteRegister = asyncHandler(async (req, res) => {
+
+    helper.checkAuthorization(req, res, false)
+
+    // check if already registered
+    const register = await Register.find({
+        user: req.user.id,
+        event: req.params.id,
+    })
+
+    if(!register.length) {
+        res.status(401)
+        throw new Error('Registration not found')
+    }
+
+    const id = register[0]._id
+    await register[0].remove()
+
+    res.status(200).json({ id: req.params.id})
 })
 
 module.exports = {
-    getRegisters, setRegister
+    getRegisters, setRegister, deleteRegister
 }
