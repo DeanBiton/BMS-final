@@ -1,5 +1,5 @@
 const asyncHandler = require('express-async-handler')
-
+const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
 const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 
@@ -7,7 +7,28 @@ const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 // @route GET /api/events
 // @access Public
 const getEvents = asyncHandler(async (req, res) => {
-    const events = await Event.find()
+    let events = await Event.find()
+
+    events = await Promise.all(events.map(async event => { 
+        let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString()).exec()
+        let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString()).exec()
+
+        //bloodTypeRegisters = await helper.removeMongooseExtras(bloodTypeRegisters)
+        //bloodTypeDemands = await helper.removeMongooseExtras(bloodTypeDemands)
+        bloodTypeRegisters = helper.removeMongooseExtras(bloodTypeRegisters)
+        helper.removeMongooseExtras(bloodTypeDemands)
+
+        let newEvent = {
+            ...event._doc,
+            bloodTypeRegisters: bloodTypeRegisters,
+            bloodTypeDemands: bloodTypeDemands,
+        }
+
+        newEvent = helper.removeMongooseExtras(newEvent)
+        helper.removeMongooseExtras(newEvent)
+
+        return newEvent
+        }))
 
     res.status(200).json(events)
 })
@@ -16,32 +37,23 @@ const getEvents = asyncHandler(async (req, res) => {
 // @route POST /api/events/
 // @access Private
 const setEvent = asyncHandler(async (req, res) => {
-    
-    // in react end change body.user to user
-    /*
-    in react change:
-        body.user_id -> user.id
-        body.user_isMedicalOrganization -> user.isMedicalOrganization
-    */ 
 
-    // Check for user
-    /*
-    if (!req.body.user) {
-        res.status(401)
-        throw new Error('User not found')
-    }
-*/
-    // Make sure the logged in user is a medical organization
-    if (req.body.user_isMedicalOrganization == "false") {
-        res.status(401)
-        throw new Error('User not authorized')
-    }
+    helper.checkAuthorization(req, res, true)
 
     const bloodTypeRegisters = await BloodTypeTrack.create({});
-    const bloodTypeDemands = await BloodTypeTrack.create({});
+    const bloodTypeDemands = await BloodTypeTrack.create({
+        'O-': req.body['O-'], 
+        'O+': req.body['O+'], 
+        'A-': req.body['A-'], 
+        'A+': req.body['A+'],
+        'B-': req.body['B-'], 
+        'B+': req.body['B+'], 
+        'AB-': req.body['AB-'], 
+        'AB+': req.body['AB+'],
+    });
 
     const event = await Event.create({
-    medicalOrganization: req.body.user_id,
+    medicalOrganization: req.user.id,
     date: req.body.date,
     location: req.body.location,
     bloodTypeRegisters: bloodTypeRegisters._id,
@@ -49,11 +61,14 @@ const setEvent = asyncHandler(async (req, res) => {
     })
     res.status(200).json(event)
 })
-/*
+
 // @desc Update Event
 // @route PUT /api/events/:id
 // @access Private
-const updateEvents = asyncHandler(async (req, res) => {
+const updateEvent = asyncHandler(async (req, res) => {
+    
+    helper.checkAuthorization(req, res, true)
+    
     const event = await Event.findById(req.params.id)
 
     if(!event){
@@ -61,15 +76,49 @@ const updateEvents = asyncHandler(async (req, res) => {
         throw new Error("Event not found")
     }
 
-    const updatedEvent = await Event.findByIdAndUpdate(
-        req.params.id, 
-        req.body,
-        {new: true}
-    )
+    const bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands)
 
-    res.status(200).json(updatedEvent)
+    const updatedBloodTypeDemands = await BloodTypeTrack.findByIdAndUpdate(
+        bloodTypeDemands, 
+        {
+            'O-': req.body['O-'], 
+            'O+': req.body['O+'], 
+            'A-': req.body['A-'], 
+            'A+': req.body['A+'],
+            'B-': req.body['B-'], 
+            'B+': req.body['B+'], 
+            'AB-': req.body['AB-'], 
+            'AB+': req.body['AB+'],
+        }
+    )
+    
+    res.status(200).json(event)
 })
-*/
+
+// @desc Delete Event
+// @route DELETE /api/events/:id
+// @access Private
+const deleteEvent = asyncHandler(async (req, res) => {
+
+    helper.checkAuthorization(req, res, true)
+
+    const event = await Event.findById(req.params.id)
+
+    if(!event){
+        res.status(400)
+        throw new Error("Event not found")
+    }
+
+    const bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+    const bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands)
+
+    await bloodTypeRegisters.remove()
+    await bloodTypeDemands.remove()
+    await event.remove()
+
+    res.status(200).json({ id: req.params.id})
+})
+
 /*
 // @desc Set Event
 // @route POST /api/events
@@ -130,5 +179,5 @@ module.exports = {
 */
 
 module.exports = {
-    setEvent,getEvents,
+    setEvent, getEvents, updateEvent, deleteEvent
 }
