@@ -5,6 +5,9 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import Events from './pages/Events'
+import Event from './pages/Event'
+import Create from './pages/Create'
 
 function App() {
   return (
@@ -16,6 +19,9 @@ function App() {
             <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
+            <Route path='/events' element={<Events />} />
+            <Route path='/event' element={<Event />} />
+            <Route path='/create' element={<Create />} />
           </Routes>
         </div>
       </Router>
