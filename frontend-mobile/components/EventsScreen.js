@@ -1,34 +1,12 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StyleSheet, Text, View} from 'react-native'
 
-function Events() {
+function EventsScreen({navigation}) {
   return (
     <View>
-      <Text>The Events page</Text>
+        <Text> Events Screen </Text>
     </View>
-  );
+  )
 }
 
-export default Events;
-
-/*
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
-function Events(){
-  return (
-    <View>
-      <Text>Add friends here!</Text>
-
-      <Button
-        title="Back to home"
-        onPress={() =>
-          this.props.navigation.navigate('Home')
-        }
-      />
-    </View>
-  );
-}
-
-export default Events;
-*/
+export default EventsScreen

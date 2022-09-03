@@ -5,7 +5,7 @@ import Navbar from './components/Navbar';
 import SignInScreen from './components/SignInScreen'
 import { Provider } from 'react-redux';
 import { store } from './app/store';
-
+import Home from './components/HomeScreen';
 export default function App() {
   return (
     <Provider store={store}>

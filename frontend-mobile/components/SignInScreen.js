@@ -6,6 +6,7 @@ import CustomButton from './CustomButton/CustomButton';
 import {useNavigation} from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SignInScreen() {
   const [username, setUsername] = useState('');
@@ -22,6 +23,8 @@ function SignInScreen() {
     (state) => state.auth
   )
   
+  //console.log(AsyncStorage.getItem('user'))
+
   useEffect(() => {
     if (isError) {
       console.warn(message)
@@ -29,8 +32,9 @@ function SignInScreen() {
     }
 
     console.log("user in signIn is: " + user)
-
+    console.log(user)
     if (isSuccess || user) {
+      console.log("im here")
       navigation.replace('Home');
     }
 
