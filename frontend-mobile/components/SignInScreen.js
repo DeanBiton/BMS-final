@@ -3,18 +3,18 @@ import { StyleSheet, Text, View, Image, useWindowDimensions } from 'react-native
 import logo from '../assets/images/logo.jpeg';
 import CustomInput from './CustomInput/CustomInput';
 import CustomButton from './CustomButton/CustomButton';
-import {useNavigation} from '@react-navigation/native';
+//import {useNavigation} from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function SignInScreen() {
+function SignInScreen({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const {height} = useWindowDimensions();
 
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
 
   // Redux
   const dispatch = useDispatch()
@@ -31,11 +31,8 @@ function SignInScreen() {
       //toast.error(message)
     }
 
-    console.log("user in signIn is: " + user)
-    console.log(user)
     if (isSuccess || user) {
-      console.log("im here")
-      navigation.replace('Home');
+      //navigation.navigate('Home')
     }
 
     dispatch(reset())
