@@ -8,7 +8,7 @@ import Register from './pages/Register'
 import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
-
+import Stats from './pages/Stats'
 function App() {
   return (
     <>
@@ -22,6 +22,7 @@ function App() {
             <Route path='/events' element={<Events />} />
             <Route path='/event' element={<Event />} />
             <Route path='/create' element={<Create />} />
+            <Route path='/stats' element={<Stats />} />
           </Routes>
         </div>
       </Router>

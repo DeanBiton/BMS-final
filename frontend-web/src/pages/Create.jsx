@@ -7,8 +7,11 @@ import { useState } from "react";
 import BloodDemand from "../components/BloodDemand";
 import Button from "@mui/material/Button";
 import  TimePicker  from "../components/TimePicker"
+import { useDispatch } from 'react-redux'
+import { createEvent } from '../features/events/eventSlice'
 
 function Create(){
+    const dispatch = useDispatch()
 
     function handleChange(event) {
         const {name, value,type} = event.target
@@ -43,6 +46,7 @@ function Create(){
     function sendForm(){
         formData.date = DateValue
         formData.time = TimeValue
+        dispatch(createEvent(formData))
         console.log(formData)
     }
 
