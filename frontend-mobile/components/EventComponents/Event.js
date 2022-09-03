@@ -1,6 +1,6 @@
 import React from 'react'
-import { View } from 'react-native'
-
+import { View, Text } from 'react-native'
+/*
 function Event({event}) {
   return (
     <View>
@@ -9,6 +9,17 @@ function Event({event}) {
         </Text>
     </View>
   )
+}
+*/
+
+function Event() {
+    return (
+        <View>
+            <Text>
+                Hello
+            </Text>
+        </View>
+    )
 }
 
 export default Event

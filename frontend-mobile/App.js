@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import { Provider } from 'react-redux';
 import { store } from './app/store';
 import background from './assets/images/background.png'
+import NavigationStack from './components/NavigationStack';
 
 export default function App() {
   const handleError = (e) => { console.log(e.nativeEvent.error); };
@@ -17,7 +18,7 @@ export default function App() {
         onError={handleError}
         >
           <></>
-          <Navbar /> 
+          <NavigationStack /> 
         </ImageBackground>
     </Provider>
   );

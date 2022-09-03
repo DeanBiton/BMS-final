@@ -16,14 +16,13 @@ function Navbar() {
   }, [user,])
 
   return (
-    <NavigationContainer>
       <Drawer.Navigator>
         {user != null ? <Drawer.Screen name="SignIn" component={SignInScreen} /> : <></>}
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Events" component={EventsScreen} />
       </Drawer.Navigator>
-    </NavigationContainer>
   )
 }
 
+// <NavigationContainer>
 export default Navbar
