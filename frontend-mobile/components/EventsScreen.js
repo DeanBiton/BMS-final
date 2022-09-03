@@ -1,34 +1,68 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {useEffect} from 'react'
+import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import { getEvents, reset } from '../features/events/eventSlice'
+import EventCard from './EventComponents/EventCard'
 
-function Events() {
+function EventsScreen({navigation}) {
+
+  const dispatch = useDispatch()
+
+  const { user } = useSelector((state) => state.auth)
+  const { events, isLoading, isError, message } = useSelector(
+      (state) => state.events
+  )
+
+  let eventCardElements
+  useEffect(() => {
+    if (isError) {
+      console.log(message)
+    }
+
+    if (!user) {
+      navigation.navigate('Home')
+    }
+    else
+    {
+      dispatch(getEvents())
+    }
+
+    
+
+    return () => {
+      dispatch(reset())
+    }
+  }, [user, isError, message, dispatch])
+
+  
+  console.log(eventCardElements)
+
+  if(isLoading)
+  {
+    return(
+      <View>
+        <ActivityIndicator />
+      </View>
+    )
+  }
+  else
+  {
+    eventCardElements = events.map((event => {
+      return <EventCard key={event._id} event={event} navigation={navigation}/>
+    }))
+  }
+
   return (
-    <View>
-      <Text>The Events page</Text>
-    </View>
-  );
+    <ScrollView>
+        {eventCardElements}
+    </ScrollView>
+  )
 }
+export default EventsScreen
 
-export default Events;
-
-/*
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-
-function Events(){
-  return (
-    <View>
-      <Text>Add friends here!</Text>
-
-      <Button
-        title="Back to home"
-        onPress={() =>
-          this.props.navigation.navigate('Home')
-        }
-      />
-    </View>
-  );
-}
-
-export default Events;
-*/
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+});
