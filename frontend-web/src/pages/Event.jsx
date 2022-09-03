@@ -2,16 +2,20 @@ import React from "react"
 import { useLocation } from 'react-router-dom'
 import data from "../dummy/Events"
 import SimpleTable from "../components/Table"
+import Button from "@mui/material/Button";
+import { useDispatch } from 'react-redux'
+import { deleteEvent } from '../features/events/eventSlice'
 import "./Event.css";
 
 function Event() {
-        const event_id = useLocation().state.event_id
-        
-        const event = data.find(obj => {
-            return obj._id === event_id;
-          });
-          
+        const event = useLocation().state.event
+        const dispatch = useDispatch()
 
+        function handleDelete(){
+          dispatch(deleteEvent(event._id))
+          console.log(event._id)
+      }
+      
       return (
         <>
         <h1>hello {event._id} </h1>
@@ -21,6 +25,8 @@ function Event() {
         <SimpleTable rows={[{Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
         {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
        {checkform}
+       <Button variant="contained" onClick={handleDelete}>Delete</Button>
+
         </>
       )
     

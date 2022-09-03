@@ -42,14 +42,14 @@ const updateEvent = async (eventData, token) => {
 }
 
 // Delete event
-const deleteEvent = async (eventData, token) => {
+const deleteEvent = async (id, token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   }
 
-  const response = await axios.delete(API_URL + eventData.id, config)
+  const response = await axios.delete(API_URL + id, config)
 
   return response.data
 }
