@@ -9,8 +9,8 @@ import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
 import Stats from './pages/Stats'
-import Donations from './components/DeanTests/Donation/Donations'
-import Registers from './components/DeanTests/Register/Registers'
+import Events from './components/DeanTests/Event/Events'
+
 function App() {
   return (
     <>
@@ -18,7 +18,7 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/' element={<Registers />} />
+            <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/events' element={<Events />} />

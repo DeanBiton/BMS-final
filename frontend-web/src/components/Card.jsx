@@ -9,11 +9,21 @@ export default function Card(props) {
       };
 
     return (
-        <div className="goal">
+        <div className="goal cardList">
+            <div className="card__text">
             <h1>date: {props.event.date}</h1>
-            <h2>location: {props.event.location}</h2>
+            <h2>location: {props.event.location}</h2>                
+            </div>
 
-            <button onClick={handleClick}>info</button>
+
+            {/* <button onClick={handleClick}>info</button> */}
+            <div className="card__right">
+
+                <button className='btn' onClick={handleClick}>
+                 Information
+                </button>            
+            </div>
+
         </div>
     )
 }
