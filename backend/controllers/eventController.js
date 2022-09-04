@@ -8,8 +8,8 @@ const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 // @access Private
 const getEvents = asyncHandler(async (req, res) => {
     let events = req.user.isMedicalOrganization ? 
-        await Event.find({'medicalOrganization' : req.user.id}) :
-        await Event.find()
+        await Event.find({'medicalOrganization' : req.user.id}, {createdAt: 0, updatedAt: 0, __v: 0}) :
+        await Event.find({}, {createdAt: 0, updatedAt: 0, __v: 0})
 
     events = await Promise.all(events.map(async event => {
         let bloodTypeDonated = await BloodTypeTrack.findById(event.bloodTypeDonated.toString(),
