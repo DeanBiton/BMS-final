@@ -9,7 +9,8 @@ import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
 import Stats from './pages/Stats'
-//import Events from './components/DeanTests/Event/Events'
+import Events from './components/DeanTests/Event/Events'
+
 function App() {
   return (
     <>

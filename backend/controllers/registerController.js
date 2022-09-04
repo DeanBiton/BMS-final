@@ -1,6 +1,8 @@
 const asyncHandler = require('express-async-handler')
 const Register = require('../models/registerModel')
 const helper = require('./controllerHelper/helper')
+const Event = require('../models/eventModel')
+const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 
 // @desc Get all Events registered
 // @route GET /api/registers
@@ -37,6 +39,16 @@ const setRegister = asyncHandler(async (req, res) => {
         event: req.body.eventId,
     })
 
+    // update bloodTrack
+    const event = await Event.findById(req.body.eventId)
+    const bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+    await BloodTypeTrack.findByIdAndUpdate(
+        bloodTypeRegisters._id,
+        {
+            [req.user.bloodType] : bloodTypeRegisters[req.user.bloodType] + 1
+        }
+    )
+
     res.status(200).json(register.event)
 })
 
@@ -60,6 +72,16 @@ const deleteRegister = asyncHandler(async (req, res) => {
 
     const id = register[0]._id
     await register[0].remove()
+
+    // update bloodTrack
+    const event = await Event.findById(req.params.id)
+    const bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+    await BloodTypeTrack.findByIdAndUpdate(
+        bloodTypeRegisters._id,
+        {
+            [req.user.bloodType] : bloodTypeRegisters[req.user.bloodType] - 1
+        }
+    )
 
     res.status(200).json({ id: req.params.id})
 })
