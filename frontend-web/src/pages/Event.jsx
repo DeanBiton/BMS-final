@@ -22,7 +22,9 @@ function Event() {
         <h1>Date {event.date}</h1>
         <h1>Location {event.location}</h1>
         
-        <SimpleTable rows={[{Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
+        <SimpleTable rows={[
+        {Type:"bloodTypeDonated",...event.bloodTypeDonated},
+        {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
         {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
        {checkform}
        <Button variant="contained" onClick={handleDelete}>Delete</Button>

@@ -10,7 +10,7 @@ import {
   } from "recharts";
 
 export default function DataComposedChart({headers,data}) {
-    console.log(headers[0])
+    console.log(headers[2])
     return (
       <ComposedChart
         width={800}
@@ -30,7 +30,7 @@ export default function DataComposedChart({headers,data}) {
         <Legend />
         <Bar dataKey={headers[1]} barSize={20} fill="#413ea0" />
         <Line type="monotone" dataKey={headers[2]} stroke="#ff7300" />
-        {/* <Line type="monotone" dataKey="amt" stroke="#ff4300" /> */}
+        <Line type="monotone" dataKey={headers[3]} stroke="#ff1300" />
   
       </ComposedChart>
     );
