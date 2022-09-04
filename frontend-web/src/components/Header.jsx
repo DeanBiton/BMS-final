@@ -1,4 +1,4 @@
-import { FaSignInAlt, FaSignOutAlt, FaUser } from 'react-icons/fa'
+import { FaSignInAlt, FaSignOutAlt, FaUser,FaRegChartBar,FaRegCalendarPlus,FaRegCalendarAlt } from 'react-icons/fa'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
@@ -17,15 +17,32 @@ function Header() {
   return (
     <header className='header'>
       <div className='logo'>
-        <Link to='/'>GoalSetter</Link>
+        <Link to='/'>B.M.S</Link>
       </div>
       <ul>
         {user ? (
-          <li>
-            <button className='btn' onClick={onLogout}>
-              <FaSignOutAlt /> Logout
-            </button>
-          </li>
+          <ul>
+            <li>
+              <button className='btn' onClick={()=>navigate('/events')}>
+                <FaRegCalendarAlt /> Events List
+              </button>
+            </li>
+            <li>
+              <button className='btn' onClick={()=>navigate('/create')}>
+                <FaRegCalendarPlus /> New Event
+              </button>
+            </li>
+            <li>
+              <button className='btn' onClick={()=>navigate('/stats')}>
+                <FaRegChartBar /> Stats
+              </button>
+            </li>
+            <li>
+              <button className='btn' onClick={onLogout}>
+                <FaSignOutAlt /> Logout
+              </button>
+            </li>
+          </ul>
         ) : (
           <>
             <li>

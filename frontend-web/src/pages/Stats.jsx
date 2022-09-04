@@ -48,74 +48,27 @@ function Stats(){
     { name: "Group F", value: 4800 }
   ];
 
- // const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const [value, setValue] = React.useState(0);
   const [show, setShow] = useState(<h1>test</h1>)
-
-
-
-
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
     setShow(statistics[newValue])
   }
 
-  const data0r = events.map(event => {
-    return event.bloodTypeRegisters
-  }).reduce((a, b) => {
-    for (let k in b) {
-      if (b.hasOwnProperty(k))
-        a[k] = (a[k] || 0) + b[k];
-    }
-    return a;
-  }, {});
-
-  const data00r = Object.entries(data0r).map(element =>{
-    return ({name : element[0], value : element[1]})
-  })
-
-  const data0d = events.map(event => {
-    return event.bloodTypeDemands
-  }).reduce((a, b) => {
-    for (let k in b) {
-      if (b.hasOwnProperty(k))
-        a[k] = (a[k] || 0) + b[k];
-    }
-    return a;
-  }, {});
-
-  const data00d = Object.entries(data0d).map(element =>{
-    return ({name : element[0], value : element[1]})
-  })
-
- const data2 = events.map(event => {
-      return (
-          {id : event._id,
-            registers : Object.values(event.bloodTypeRegisters).reduce((a, b) => a + b),
-            demand : Object.values(event.bloodTypeDemands).reduce((a, b) => a + b)
-          } 
-
-      )
-  })  
-
-  
-    console.log(data)
-
-
   const statistics = [
-    <BasicPieChart dataFirst= {data00d} dataSecond={data00r}/>,
+    <BasicPieChart dataFirst= {pieData(events,'bloodTypeDemands')} dataSecond={pieData(events,'bloodTypeRegisters')}/>,
     <h1>Hello</h1>,
-    <DataComposedChart headers={['id','demand','registers']} data= {data2}/>,
+    <DataComposedChart headers={['id','demand','registers','donate']} data= {chartData(events)}/>,
   ];
 
 return(
 
   <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
   <Tabs value={value} onChange={handleChange} centered>
-    <Tab label="Item One" />
+    <Tab label="Pie" />
     <Tab label="Item Two" />
-    <Tab label="Item Three" />
+    <Tab label="Chart" />
   </Tabs>
   {show}
 
@@ -124,5 +77,39 @@ return(
 )
 }
 export default Stats
+
+
+function pieData(events,type){
+
+     const data= events.map(event => {
+    return event[type]
+  }).reduce((a, b) => {
+    for (let k in b) {
+      if (b.hasOwnProperty(k))
+        a[k] = (a[k] || 0) + b[k];
+    }
+    return a;
+  }, {})
+return (
+  Object.entries(data).map(element =>{
+    return ({name : element[0], value : element[1]})
+  })
+)
+}
+
+function chartData(events){
+  return (
+    events.map(event => {
+      return (
+          {id : event._id,
+            registers : Object.values(event.bloodTypeRegisters).reduce((a, b) => a + b),
+            demand : Object.values(event.bloodTypeDemands).reduce((a, b) => a + b),
+            donate : Object.values(event.bloodTypeDonated).reduce((a, b) => a + b)
+          } 
+      )
+  })  
+  )
+}
+
 
 

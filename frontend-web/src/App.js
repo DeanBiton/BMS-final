@@ -5,11 +5,11 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
-//import Events from './pages/Events'
+import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
 import Stats from './pages/Stats'
-import Events from './components/DeanTests/Event/Events'
+//import Events from './components/DeanTests/Event/Events'
 function App() {
   return (
     <>
@@ -17,7 +17,7 @@ function App() {
         <div className='container'>
           <Header />
           <Routes>
-            <Route path='/' element={<Events />} />
+            <Route path='/' element={<Dashboard />} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/events' element={<Events />} />
