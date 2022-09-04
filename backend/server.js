@@ -17,6 +17,7 @@ app.use('/api/goals', require('./routes/goalRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/events', require('./routes/eventRoutes'));
 app.use('/api/registers', require('./routes/registerRoutes'));
+app.use('/api/donations', require('./routes/donationRoutes'));
 
 // Serve frontend
 if (process.env.NODE_ENV === 'production') {
