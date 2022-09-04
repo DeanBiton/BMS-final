@@ -8,7 +8,7 @@ const eventSchema = mongoose.Schema(
             ref: 'User',
         },
         date: {
-            type: String,
+            type: Date,
             require: [true, 'Please add a date'],
         },
         location: {
