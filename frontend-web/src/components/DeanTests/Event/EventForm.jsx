@@ -90,6 +90,7 @@ function EventForm() {
 
     return (
         <>
+            <h1>Create</h1>
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
@@ -167,6 +168,7 @@ function EventForm() {
                 <button>Submit</button>
             </form>
 
+            <h1>Update</h1>
             <form onSubmit={handleSubmit2}>
                 <input
                     type="text"
@@ -237,6 +239,7 @@ function EventForm() {
                 <button>Submit</button>
             </form>
 
+            <h1>Delete</h1>
             <form onSubmit={handleSubmit3}>
                 <input
                     type="text"

@@ -15,6 +15,11 @@ const eventSchema = mongoose.Schema(
             type: String,
             required: [true, 'Please add a location'],
         },
+        bloodTypeDonated: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'BloodTypeTrack',
+        },
         bloodTypeRegisters: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
