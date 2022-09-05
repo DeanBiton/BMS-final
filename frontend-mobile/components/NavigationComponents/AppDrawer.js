@@ -1,15 +1,14 @@
-import * as React from 'react'
+import { useEffect } from 'react'
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native'
-import HomeScreen from './HomeScreen';
-import EventsScreen from './EventsScreen';
-import SignInScreen from './SignInScreen';
 import { useSelector } from 'react-redux'
-import { useEffect } from 'react';
+import HomeScreen from '../HomeScreen';
+import EventsScreen from '../EventComponents/EventsScreen';
+//import SignInScreen from '../SignInScreen';
 
 const Drawer = createDrawerNavigator()
 
-function Navbar() {
+function AppDrawer() {
   const { user } = useSelector((state) => state.auth)
   
   useEffect(() => {
@@ -17,12 +16,12 @@ function Navbar() {
 
   return (
       <Drawer.Navigator>
-        {user != null ? <Drawer.Screen name="SignIn" component={SignInScreen} /> : <></>}
         <Drawer.Screen name="Home" component={HomeScreen} />
         <Drawer.Screen name="Events" component={EventsScreen} />
       </Drawer.Navigator>
   )
 }
 
+//{user != null ? <Drawer.Screen name="SignIn" component={SignInScreen} /> : <></>}
 // <NavigationContainer>
-export default Navbar
+export default AppDrawer

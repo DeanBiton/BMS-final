@@ -3,9 +3,8 @@ import { StyleSheet, Text, View, Image, useWindowDimensions } from 'react-native
 import logo from '../assets/images/logo.jpeg';
 import CustomInput from './CustomInput/CustomInput';
 import CustomButton from './CustomButton/CustomButton';
-//import {useNavigation} from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, reset } from '../features/auth/authSlice';
+import {login, reset } from '../features/auth/authSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function SignInScreen({navigation}) {
@@ -23,23 +22,21 @@ function SignInScreen({navigation}) {
     (state) => state.auth
   )
   
-  //console.log(AsyncStorage.getItem('user'))
-
   useEffect(() => {
     if (isError) {
       console.warn(message)
-      //toast.error(message)
     }
 
+    //dispatch(getUser())
+
     if (isSuccess || user) {
-      //navigation.navigate('Home')
+      navigation.navigate('drawer')
     }
 
     dispatch(reset())
   }, [user, isError, isSuccess, message, navigation, dispatch])
 
   const onSignInPress = (e) => {
-    //console.warn("Sign in")
     e.preventDefault()
 
     const userData = {
@@ -50,7 +47,6 @@ function SignInScreen({navigation}) {
     dispatch(login(userData))
   }
 
-  
   return (
     <View style={styles.root}>
       <Image 
@@ -58,7 +54,6 @@ function SignInScreen({navigation}) {
         style={[styles.logo, {height: height * 0.3}]} 
         resizeMode="contain"  
       />
-
       <CustomInput 
         placeholder="Username" 
         value={username} 
@@ -75,7 +70,6 @@ function SignInScreen({navigation}) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   root: {
