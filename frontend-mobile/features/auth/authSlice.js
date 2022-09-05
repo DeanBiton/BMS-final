@@ -2,8 +2,19 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import authService from './authService'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useState} from 'react'
+import {useDispatch } from 'react-redux';
 
-const user =  JSON.stringify(AsyncStorage.getItem('user')) === JSON.stringify({"_U":0, "_V":0, "_W":null, "_X":null}) ? null : JSON.stringify(AsyncStorage.getItem('user'))
+// async function getUser() {
+//    return await AsyncStorage.getItem('user')
+// }
+//const user =  JSON.stringify(AsyncStorage.getItem('user')) === JSON.stringify({"_1":0,"_2":0,"_3":null,"_4":null}) ? null : JSON.stringify(AsyncStorage.getItem('user'))
+//const user = AsyncStorage.getItem('user')['_3']
+let user
+// getUser().then(data => {
+//   user = data
+//   console.log(user)
+// })
+// console.log(user)
 
 const initialState = {
   user: user ? user : null,
@@ -12,6 +23,20 @@ const initialState = {
   isLoading: false,
   message: '',
 }
+// get user from AsyncStorage
+// export const getUser = createAsyncThunk('auth/set',async (user, thunkAPI) => {
+//   try {
+//     return await authService.getUser()
+//   } catch (error) {
+//     const message =
+//       (error.response &&
+//         error.response.data &&
+//         error.response.data.message) ||
+//       error.message ||
+//       error.toString()
+//     return thunkAPI.rejectWithValue(message)
+//   }
+// })
 
 // Register user
 export const register = createAsyncThunk(

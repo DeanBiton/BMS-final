@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
-import { getEvents, reset } from '../features/events/eventSlice'
-import EventCard from './EventComponents/EventCard'
+import { getEvents, reset } from '../../features/events/eventSlice'
+import EventCard from './EventCard'
 
 function EventsScreen({navigation}) {
 
@@ -34,9 +34,6 @@ function EventsScreen({navigation}) {
     }
   }, [user, isError, message, dispatch])
 
-  
-  console.log(eventCardElements)
-
   if(isLoading)
   {
     return(
@@ -55,6 +52,11 @@ function EventsScreen({navigation}) {
   return (
     <ScrollView>
         {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+
     </ScrollView>
   )
 }

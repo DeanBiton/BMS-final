@@ -3,8 +3,7 @@ import { View, Pressable, StyleSheet, Text} from 'react-native'
 
 function EventCard({event, navigation}) {
     const onPress = () => {
-        console.log( "hello")
-        navigation.navigate('eventScreen', event={event})
+        navigation.navigate('eventScreen', {event})
     }
   return (
     <Pressable style={styles.container} onPress={onPress}>
@@ -15,7 +14,7 @@ function EventCard({event, navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#74992e',
+        backgroundColor: '#FFD700',
         justifyContent: "flex-start",
         width: '80%',
         padding: 15,
