@@ -13,11 +13,8 @@ function SignInScreen({navigation}) {
 
   const {height} = useWindowDimensions();
 
-  //const navigation = useNavigation();
-
   // Redux
   const dispatch = useDispatch()
-
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   )

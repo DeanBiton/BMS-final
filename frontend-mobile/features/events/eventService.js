@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://192.168.218.78:5000/api/events/'
+const API_URL = 'http://192.168.108.78:5000/api/events/'
 
 // Create new event
 const createEvent = async (eventData, token) => {
@@ -37,7 +37,6 @@ const updateEvent = async (eventData, token) => {
   }
 
   const response = await axios.put(API_URL + eventData.id, eventData, config)
-  console.log(response.data)
   return response.data
 }
 

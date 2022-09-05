@@ -8,10 +8,6 @@ import EventsScreen from '../EventComponents/EventsScreen';
 const Drawer = createDrawerNavigator()
 
 function AppDrawer() {
-  const { user } = useSelector((state) => state.auth)
-  
-  useEffect(() => {
-  }, [user,])
 
   return (
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}>

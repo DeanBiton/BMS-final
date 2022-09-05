@@ -52,6 +52,11 @@ function EventsScreen({navigation}) {
   return (
     <ScrollView>
         {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+        {eventCardElements}
+
     </ScrollView>
   )
 }
