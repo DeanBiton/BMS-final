@@ -8,7 +8,7 @@ import EventsScreen from '../EventComponents/EventsScreen';
 
 const Drawer = createDrawerNavigator()
 
-function AppDrawer() {
+function DrawerNavigator() {
   const { user } = useSelector((state) => state.auth)
   
   useEffect(() => {
@@ -24,4 +24,4 @@ function AppDrawer() {
 
 //{user != null ? <Drawer.Screen name="SignIn" component={SignInScreen} /> : <></>}
 // <NavigationContainer>
-export default AppDrawer
+export default DrawerNavigator

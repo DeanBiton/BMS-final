@@ -1,22 +1,13 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-/*
-function Event({event}) {
-  return (
-    <View>
-        <Text>
-            {event._id}
-        </Text>
-    </View>
-  )
-}
-*/
 
-function Event() {
+function Event({route}) {
+    const {event} = route.params
+    console.log(event)
     return (
         <View>
             <Text>
-                Hello
+                {event._id}
             </Text>
         </View>
     )
