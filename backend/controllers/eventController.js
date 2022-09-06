@@ -51,11 +51,14 @@ const setEvent = asyncHandler(async (req, res) => {
         'AB-': req.body['AB-'], 
         'AB+': req.body['AB+'],
     });
-    
+
     const event = await Event.create({
     medicalOrganization: req.user.id,
     date: new Date(req.body.date),
-    location: req.body.location,
+    timeStart: new Date(req.body.timeStart),
+    timeEnd: new Date(req.body.timeEnd),
+    city: req.body.city,
+    address: req.body.address,
     bloodTypeDonated: bloodTypeDonated._id,
     bloodTypeRegisters: bloodTypeRegisters._id,
     bloodTypeDemands: bloodTypeDemands._id,

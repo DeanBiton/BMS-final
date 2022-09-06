@@ -11,9 +11,21 @@ const eventSchema = mongoose.Schema(
             type: Date,
             require: [true, 'Please add a date'],
         },
-        location: {
+        timeStart: {
+            type: Date,
+            require: [true, 'Please add the start time'],
+        },
+        timeEnd: {
+            type: Date,
+            require: [true, 'Please add the end time'],
+        },
+        city: {
             type: String,
-            required: [true, 'Please add a location'],
+            required: [true, 'Please add a city'],
+        },
+        address: {
+            type: String,
+            required: [true, 'Please add an address'],
         },
         bloodTypeDonated: {
             type: mongoose.Schema.Types.ObjectId,
@@ -41,22 +53,5 @@ const eventSchema = mongoose.Schema(
         timestamps: true
     }
 )
-
-/*
-
-date: {
-            type: Date,
-            require: [true, 'Please add a date'],
-            validate: {
-                validator : function (v) {
-                    return (
-                        V.getTime() >= Date.now()
-                    )
-                },
-                message: 'Date must be in the future'
-              }
-        },
-
-*/
 
 module.exports = mongoose.model('Event', eventSchema)
