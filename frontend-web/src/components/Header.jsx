@@ -2,7 +2,7 @@ import { FaSignInAlt, FaSignOutAlt, FaUser,FaRegChartBar,FaRegCalendarPlus,FaReg
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
-
+import Button from '@mui/material/Button';
 function Header() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -21,7 +21,8 @@ function Header() {
       </div>
       <ul>
         {user ? (
-          <ul>
+          <>
+          
             <li>
               <button className='btn' onClick={()=>navigate('/events')}>
                 <FaRegCalendarAlt /> Events List
@@ -42,7 +43,14 @@ function Header() {
                 <FaSignOutAlt /> Logout
               </button>
             </li>
-          </ul>
+            <li>
+            <Button onClick={()=>navigate('/stats')} variant="outlined" sx={{ my: 1, mx: 1.5 }}>
+            Log Out
+          </Button>
+            </li>
+          
+          
+          </>
         ) : (
           <>
             <li>

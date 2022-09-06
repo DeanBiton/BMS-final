@@ -35,13 +35,7 @@ h3 {
   margin-bottom: 10px;
 }
 
-.container {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 20px;
-  text-align: center;
-}
+
 
 .header {
   display: flex;
@@ -237,3 +231,76 @@ h3 {
   display: block;
   margin-top: 25%;
 }
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: center;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.twoSides {
+  flex-direction: row;
+  display: flex;
+  height:100%;
+}
+
+.sideBar {
+  position: relative;
+  height:100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+  overflow:auto;
+
+}
+
+.pro-sidebar > .pro-sidebar-inner{
+  background-color: #0c1e35;
+  color: #b3b8d4;
+}
+
+.sidebar-btn{
+  transition: width .3s;
+  width: 150px;
+  padding: 6px 15px;
+  border-radius: 40px;
+  background: hsla(0,0%,100%,.05);
+  color: #adadad;
+  text-decoration: none;
+  margin: 0 auto;
+  height: 35px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  cursor: pointer;
+
+}
+
+.sidebar-btn-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
