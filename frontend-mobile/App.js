@@ -9,18 +9,20 @@ export default function App() {
 
   return (
     <Provider store={store}> 
-      <ImageBackground 
+      <NavigationStack /> 
+    </Provider>
+  );
+}
+/*
+<ImageBackground 
         source={require('./assets/images/background.png')}
         resizeMode={'cover'}
         style={styles.root}
         onError={handleError}
       >
-        <NavigationStack /> 
-      </ImageBackground>
-    </Provider>
-  );
-}
 
+    </ImageBackground>
+*/
 const styles = StyleSheet.create({
   root: {
     flex: 1,
