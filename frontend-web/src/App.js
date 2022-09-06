@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import Events from './pages/Events'
+//import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
 import Stats from './pages/Stats'
@@ -15,6 +15,7 @@ import SideBar from './components/SideBar'
 import { useSelector, useDispatch } from 'react-redux'
 import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
+import Events from './components/DeanTests/Event/Events'
 function App() {
   const { user } = useSelector((state) => state.auth)
   return (

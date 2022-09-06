@@ -7,8 +7,11 @@ function EventForm() {
 
     const [formData, setFormData] = useState(
         {
-            location: "", 
+            city: "", 
+            address: "", 
             date: "",
+            timeStart: "", 
+            timeEnd: "", 
             'O-': "", 
             'O+': "",
             'A-': "", 
@@ -84,8 +87,8 @@ function EventForm() {
 
     function handleSubmit3(event) {
         event.preventDefault()
-        dispatch(deleteEvent(formData3))
-        console.log(formData3)
+        dispatch(deleteEvent(formData3.id))
+        //console.log(formData3)
     }
 
     return (
@@ -94,10 +97,17 @@ function EventForm() {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
-                    placeholder="Location"
+                    placeholder="city"
                     onChange={handleChange}
-                    name="location"
-                    value={formData.location}
+                    name="city"
+                    value={formData.city}
+                />
+                <input
+                    type="text"
+                    placeholder="address"
+                    onChange={handleChange}
+                    name="address"
+                    value={formData.address}
                 />
                 <input
                     type="text"
@@ -105,6 +115,20 @@ function EventForm() {
                     onChange={handleChange}
                     name="date"
                     value={formData.date}
+                />
+                <input
+                    type="text"
+                    placeholder="timeStart"
+                    onChange={handleChange}
+                    name="timeStart"
+                    value={formData.timeStart}
+                />
+                <input
+                    type="text"
+                    placeholder="timeEnd"
+                    onChange={handleChange}
+                    name="timeEnd"
+                    value={formData.timeEnd}
                 />
                 <input
                     type="number"
