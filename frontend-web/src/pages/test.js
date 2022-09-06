@@ -1,8 +1,9 @@
+import Checkout from "../components/CreateEvent/Checkout"
+import Review from "../components/CreateEvent/Review"
+import NewEvent from "./NewEvent"
 export default function Test(){
     return(
-        <div>
-                    <h1>Yssssssssssssssssssssssssssssssso</h1>
-
-        </div>
+        <Checkout/>
+        // <NewEvent/>
     )
 }

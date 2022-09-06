@@ -5,7 +5,7 @@ import Header from './components/Header'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 import Register from './pages/Register'
-//import Events from './pages/Events'
+import Events from './pages/Events'
 import Event from './pages/Event'
 import Create from './pages/Create'
 import Stats from './pages/Stats'
@@ -15,7 +15,8 @@ import SideBar from './components/SideBar'
 import { useSelector, useDispatch } from 'react-redux'
 import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
-import Events from './components/DeanTests/Event/Events'
+import NewEvent from './pages/NewEvent'
+import Checkout from './components/CreateEvent/Checkout'
 function App() {
   const { user } = useSelector((state) => state.auth)
   return (
@@ -39,8 +40,10 @@ function App() {
               <Route path='/stats' element={<Stats />} />
               <Route path='/stats/pie' element={<Pie />} />
               <Route path='/stats/chart' element={<Chart />} />
-              <Route path='/test' element={<Test />} />
+              <Route path='/test' element={<NewEvent />} />
               <Route path='/signin' element={<SignInSide />} />
+              <Route path='/test2' element={<Checkout />} />
+
             </Routes>
           </div>
         </div>
