@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-nat
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../../features/events/eventSlice'
 import EventCard from './EventCard'
+import VegaScrollList from './Scroller/ScrollList'
 
 function EventsScreen({navigation}) {
 
@@ -27,8 +28,6 @@ function EventsScreen({navigation}) {
       dispatch(getEvents())
     }
 
-    
-
     return () => {
       dispatch(reset())
     }
@@ -42,29 +41,33 @@ function EventsScreen({navigation}) {
       </View>
     )
   }
-  else
-  {
-    eventCardElements = events.map((event => {
-      return <EventCard key={event._id} event={event} navigation={navigation}/>
-    }))
-  }
+/*
+  eventCardElements = events.map((event => {
+    return <EventCard key={event._id} event={event} navigation={navigation}/>
+  }))
+  */
+
+  eventCardElements = 
+    <VegaScrollList
+      distanceBetweenItem={12}
+      data={[...events, ...events, ...events, ...events, ...events, ...events, ]}
+      keyExtractor={event => event._id}
+      renderItem={event =><EventCard event={event} navigation={navigation}/>}>
+    </VegaScrollList>
 
   return (
-    <ScrollView>
+    <View style={styles.container}>
         {eventCardElements}
-        {eventCardElements}
-        {eventCardElements}
-        {eventCardElements}
-        {eventCardElements}
-
-    </ScrollView>
+    </View>
   )
 }
 export default EventsScreen
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: "center"
+    // flex: 1,
+    // justifyContent: "center",
+    backgroundColor: '#D3D3D3',
+    height: '100%',
   },
 });
