@@ -317,9 +317,9 @@ h3 {
 }
 
 
-.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+/* .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
   margin-top: 10%;
-}
+} */
 
 
 #trst {
@@ -345,3 +345,32 @@ input[type="number"] {
 #bloodStack > div {
   width:100%;
   }
+
+  #deleteEvent{
+    float: right;
+    margin-top: 50px;
+    background-color: red;
+    /* position:inherit; */
+    /* margin-right:0;  */
+    text-align: right;
+  }
+
+  .wrapperRightSide{
+    /* float: right; */
+    /* align-items:initial; */
+    display: flex;
+    flex-direction: row-reverse;
+    }
+
+    #showDemand{
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+
+.eventInnerPaper{
+  width: 60%;
+  /* display: flex; */
+  margin-left: 20%;
+
+}
+  
