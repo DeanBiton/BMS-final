@@ -322,4 +322,26 @@ h3 {
 }
 
 
+#trst {
+  margin-left: 50px;
+  column-gap: 9px;
+}
 
+#trst > input {
+  width: 50px;
+  margin: 1px 10px;
+  border: 1px solid green;
+}
+
+input[type="number"] {
+  width: 3.5em;
+}
+
+#bloodStack {
+  width:100%;
+  text-align:center;
+}
+
+#bloodStack > div {
+  width:100%;
+  }

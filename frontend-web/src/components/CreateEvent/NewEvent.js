@@ -13,8 +13,7 @@ import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
-import Review from './Review';
+import BloodForm from './BloodForm';
 import { Dayjs } from 'dayjs';
 import * as dayjs from 'dayjs'
 import { useDispatch } from 'react-redux'
@@ -57,9 +56,6 @@ export default function Checkout() {
         "O+":0,
         "O-":0
     })
-    //const [DateValue, setDateValue] = React.useState(Dayjs);
-    //const [TimeStartValue, setTimeStartValue] = React.useState(Dayjs);
-    //const [TimeEndValue, setTimeEndValue] = React.useState(Dayjs);
 
     function handleChange(event) {
         const {name, value,type} = event.target
@@ -93,7 +89,7 @@ export default function Checkout() {
           case 0:
             return <AddressForm formData = {formData} handleFunc= {handleChange} handleDateTimeFunc={handleChangeDateTime}/>;
           case 1:
-            return <PaymentForm formData = {formData} handleFunc= {handleChange}/>;
+            return <BloodForm formData = {formData} handleFunc= {handleChange}/>;
           default:
             throw new Error('Unknown step');
         }

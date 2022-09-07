@@ -1,54 +1,29 @@
-import React from "react"
+import AddressForm from '../components/CreateEvent/AddressForm';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import { useLocation } from 'react-router-dom'
-import data from "../dummy/Events"
+import { useSelector, useDispatch } from 'react-redux'
 import SimpleTable from "../components/Table"
-import Button from "@mui/material/Button";
-import { useDispatch } from 'react-redux'
-import { deleteEvent } from '../features/events/eventSlice'
-import "./Event.css";
 
-function Event() {
-        const event = useLocation().state.event
-        const dispatch = useDispatch()
+export default function Test(){
+    const event = useLocation().state.event
+    const dispatch = useDispatch()
+    console.log(event)
 
-        function handleDelete(){
-          dispatch(deleteEvent(event._id))
-          console.log(event._id)
-      }
-      
-      return (
-        <>
-        <h1>hello {event._id} </h1>
-        <h1>Date {event.date}</h1>
-        <h1>Location {event.location}</h1>
-        
-        <SimpleTable rows={[
-        {Type:"bloodTypeDonated",...event.bloodTypeDonated},
-        {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
-        {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
-       {checkform}
-       <Button variant="contained" onClick={handleDelete}>Delete</Button>
 
-        </>
-      )
+        return(
+            <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
+                        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
     
-   
+            <AddressForm formData={event} handleFunc={undefined} handleDateTimeFunc={undefined} isDisable={true} />
+            <SimpleTable className="eventTable"rows={[
+                {Type:"bloodTypeDonated",...event.bloodTypeDonated},
+                {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
+                {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
+
+            </Paper>
+            </Container>
+        )
+    
+    
 }
-export default Event
-
-const checkform = 
-<form>
-<div id="trst"  >
- 
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  <input type="number" placeholder="8" min="1" max="50" />
-  </div>
-
-<input type="submit" value="Submit" />
-</form>
