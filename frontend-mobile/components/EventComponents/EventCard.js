@@ -6,7 +6,7 @@ function EventCard(props) {
     const event = props.event.item
     const navigation = props.navigation
     const onPress = () => {
-        navigation.navigate('eventScreen', {event})
+        navigation.navigate('eventScreen', {id: event._id})
     }
     const date = new Date(event.date)
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
