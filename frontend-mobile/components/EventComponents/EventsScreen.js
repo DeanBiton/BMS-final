@@ -41,16 +41,11 @@ function EventsScreen({navigation}) {
       </View>
     )
   }
-/*
-  eventCardElements = events.map((event => {
-    return <EventCard key={event._id} event={event} navigation={navigation}/>
-  }))
-  */
 
   eventCardElements = 
     <VegaScrollList
       distanceBetweenItem={12}
-      data={[...events, ...events, ...events, ...events, ...events, ...events, ]}
+      data={events}
       keyExtractor={event => event._id}
       renderItem={event =><EventCard event={event} navigation={navigation}/>}>
     </VegaScrollList>
