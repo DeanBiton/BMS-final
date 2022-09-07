@@ -11,12 +11,12 @@ import { useState, useEffect } from 'react'
 import UpdateDemand from '../components/UpdateDemand'
 import { refreshEvent } from '../features/events/eventSlice';
 import Spinner from '../components/Spinner'
-import { getEvents, reset } from '../features/events/eventSlice'
+import { getEvents, deleteEvent, reset } from '../features/events/eventSlice'
 
 import { useNavigate } from 'react-router-dom'
 
 function Test(){
-    const id='63178a1253395e0b8d5181c7'
+    const id = useLocation().state.event_id
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -51,33 +51,24 @@ function Test(){
 
     // Declare states
     const [showDemand, setShowDemand] = useState(false)
-    // const [event, setEvent] = useState(null)
 
-    if(isLoading)
+    if(isLoading || events.length ===0)
     {
         return (<Spinner />)
     }
     
-    // setEvent())
     let event = events.find((event) => event._id === id)
-    console.log(event)
-    console.log(event._id)
 
-    //setEvent(events[0])
-
-    // Continue
-    //const event = useLocation().state.event
-
-    function updateDemand(){
-        console.log("update")
-        setShowDemand(false)
+    function handleDelete(){
+        dispatch(deleteEvent(id))
+        navigate('/events')
     }
 
     return(
         <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
                     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
 
-        {/* <AddressForm formData={event} handleFunc={undefined} handleDateTimeFunc={undefined} isDisable={true} />
+        <AddressForm formData={event} handleFunc={undefined} handleDateTimeFunc={undefined} isDisable={true} />
         {!showDemand? (
                 <>
                 <div className='wrapperRightSide'> 
@@ -87,20 +78,11 @@ function Test(){
                     {Type:"bloodTypeDonated",...event.bloodTypeDonated},
                     {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
                     {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
-                    </>
+                </>
         ) : (
             <UpdateDemand  eventId ={event._id}data={event.bloodTypeDemands} handle={()=>setShowDemand(false)}/>
-        )} */}
-
-        {/* //     <Paper  className="eventInnerPaper" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-        //     <BloodForm formData={event.bloodTypeDemands} handleFunc={undefined}/>
-        //     <Button  variant="contained">Update</Button>
-        //     <Button  variant="contained" onClick={()=>setShowDemand(false)} >Cancel</Button>
-        // </Paper> */}
-
-
-        
-                <Button id='deleteEvent' variant="contained">Delete Event</Button>
+        )}
+      <Button id='deleteEvent' variant="contained" onClick={handleDelete}>Delete Event</Button>
         </Paper>
         </Container>
     )

@@ -33,11 +33,8 @@ export default function Test({eventId, data, handle}){
     }
 
     function handleOk(){
-        //console.log(formData)
         dispatch(updateEvent(formData))
         handle(false)
-        // window.location.reload(false);
-
     }
 return(
     <Paper  className="eventInnerPaper" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>

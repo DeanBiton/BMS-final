@@ -5,9 +5,9 @@ export default function Card(props) {
     const navigate = useNavigate()
     const handleClick = () => {
         //<Link to="/event" id={"86"}> </Link>
-        navigate('/event');
+        navigate('/event',{state:{event_id:props.event._id}});
       };
-//{state:{event:props.event}}
+
     return (
         <div className="goal cardList">
             <div className="card__text">
