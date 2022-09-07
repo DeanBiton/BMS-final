@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Pressable, StyleSheet, Text} from 'react-native'
+import * as dayjs from 'dayjs'
 
 function EventCard(props) {
     const event = props.event.item
@@ -7,11 +8,20 @@ function EventCard(props) {
     const onPress = () => {
         navigation.navigate('eventScreen', {event})
     }
+    const date = new Date(event.date)
+    const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
+    const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
+
   return (
     <View style={styles.container} elevation={5}>
     <Pressable style={styles.pressable} onPress={onPress}>
       <View style={styles.s}>
-        <Text style={styles.text}>{`Location: ${event.location} \n Date: ${event.date}\n Hours: 10:00-12:00`}</Text>
+        <Text style={styles.text}>{
+`Location: ${event.city}, ${event.address}
+Date: ${date.toLocaleDateString('en-US')}
+Hours: ${timeStart} - ${timeEnd}`
+          }
+        </Text>
       </View>
     </Pressable>
     </View>
@@ -78,4 +88,3 @@ const styles = StyleSheet.create({
   });
 */
 export default EventCard
-// onPress={navigation.navigate('eventScreen', event={event})}
