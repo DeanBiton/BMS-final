@@ -302,5 +302,46 @@ h3 {
   justify-content: center;
 }
 
+.ListItemSides{
+  /* flex-direction: row; */
+  /* display: flex; */
+  /* height:100%; */
+  margin-left: 10%;
+  margin-bottom: 10%;
+}
+
+.css-1x51dt5-MuiInputBase-input-MuiInput-input.Mui-disabled{
+
+     opacity: 1;
+    -webkit-text-fill-color: rgb(0, 0, 0) !important;
+}
 
 
+.css-11xur9t-MuiPaper-root-MuiTableContainer-root{
+  margin-top: 10%;
+}
+
+
+#trst {
+  margin-left: 50px;
+  column-gap: 9px;
+}
+
+#trst > input {
+  width: 50px;
+  margin: 1px 10px;
+  border: 1px solid green;
+}
+
+input[type="number"] {
+  width: 3.5em;
+}
+
+#bloodStack {
+  width:100%;
+  text-align:center;
+}
+
+#bloodStack > div {
+  width:100%;
+  }
