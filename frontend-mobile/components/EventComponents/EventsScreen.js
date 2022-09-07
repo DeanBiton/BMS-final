@@ -2,6 +2,8 @@ import {useEffect} from 'react'
 import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../../features/events/eventSlice'
+import { getRegisters } from '../../features/registers/registerSlice'
+import {resetRegisters} from '../../features/registers/registerSlice'
 import EventCard from './EventCard'
 import VegaScrollList from './Scroller/ScrollList'
 
@@ -13,19 +15,20 @@ function EventsScreen({navigation}) {
   const { events, isLoading, isError, message } = useSelector(
       (state) => state.events
   )
-
+  
   let eventCardElements
   useEffect(() => {
     if (isError) {
       console.log(message)
     }
-
+    console.log("Activate")
     if (!user) {
       navigation.navigate('Home')
     }
     else
     {
       dispatch(getEvents())
+      dispatch(getRegisters())
     }
 
     return () => {

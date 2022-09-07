@@ -32,6 +32,21 @@ function DrawerNavigator(props) {
   return (
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>}
       screenOptions={options.drawerNavigator}>
+        
+        <Drawer.Screen name="Events" component={EventsScreen} options={{
+          drawerIcon : ({color}) => (
+            <Ionicons name="ios-calendar-sharp" size={22} color={color} style={styles.drawerIcon}/>
+          ),
+          headerLeft: headerButtonElement,
+          headerStyle: styles.header,
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            color: "black",
+            left: 100
+          },
+        }}/>
+
         <Drawer.Screen name="Home" component={HomeScreen} style={{flexDirection: 'row',}} options={{
           drawerIcon : ({color}) => (
             <Ionicons name="home-outline" size={22} color={color} style={styles.drawerIcon}/>
@@ -45,19 +60,6 @@ function DrawerNavigator(props) {
             left: 100
           },
           
-        }}/>
-        <Drawer.Screen name="Events" component={EventsScreen} options={{
-          drawerIcon : ({color}) => (
-            <Ionicons name="ios-calendar-sharp" size={22} color={color} style={styles.drawerIcon}/>
-          ),
-          headerLeft: headerButtonElement,
-          headerStyle: styles.header,
-          headerTintColor: "black",
-          headerTitleStyle: {
-            fontWeight: "bold",
-            color: "black",
-            left: 100
-          },
         }}/>
       </Drawer.Navigator>
   )

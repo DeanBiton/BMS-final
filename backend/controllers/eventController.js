@@ -126,6 +126,41 @@ const deleteEvent = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id})
 })
 
+// @desc Refresh Event
+// @route GET /api/events/refresh/:id
+// @access Private
+const refreshEvent = asyncHandler(async (req, res) => {
+
+    const event = await Event.findById(req.params.id, {createdAt: 0, updatedAt: 0, __v: 0})
+
+    if(!event){
+        res.status(400)
+        throw new Error("Event not found")
+    }
+
+    const refreshedEventFunc = async event => {
+        let bloodTypeDonated = await BloodTypeTrack.findById(event.bloodTypeDonated.toString(),
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0}).exec()
+        let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString(), 
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0}).exec()
+        let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString(),
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0, 'Not specified': 0}).exec()
+
+        let newEvent = {
+            ...event._doc,
+            bloodTypeDonated: bloodTypeDonated,
+            bloodTypeRegisters: bloodTypeRegisters,
+            bloodTypeDemands: bloodTypeDemands,
+        }
+        return newEvent
+    }
+
+    const refreshedEvent = await refreshedEventFunc(event)
+    //console.log(refreshedEvent)
+
+    res.status(200).json(refreshedEvent)
+})
+
 module.exports = {
-    setEvent, getEvents, updateEvent, deleteEvent
+    setEvent, getEvents, updateEvent, deleteEvent, refreshEvent,
 }

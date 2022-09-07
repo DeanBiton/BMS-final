@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
 import eventService from './eventService'
 
 const initialState = {
@@ -85,6 +85,25 @@ export const deleteEvent = createAsyncThunk(
   }
 )
 
+// Refresh event
+export const refreshEvent = createAsyncThunk(
+  'events/refresh',
+  async (eventData, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token
+      return await eventService.refreshEvent(eventData, token)
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString()
+      return thunkAPI.rejectWithValue(message)
+    }
+  }
+)
+
 export const eventSlice = createSlice({
     name: 'event',
     initialState,
@@ -149,6 +168,26 @@ export const eventSlice = createSlice({
             state.isLoading = false
             state.isError = true
             state.message = action.payload
+          })
+          .addCase(refreshEvent.pending, (state) => {
+            state.isLoading = true
+          })
+          .addCase(refreshEvent.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.isSuccess = true
+            const event = current(state.events).find((event) => event._id === action.payload._id)
+            if(JSON.stringify(event) !== JSON.stringify(action.payload))
+            {
+              state.events = state.events.filter(
+                (event) => event._id !== action.payload._id
+              )
+              state.events.push(action.payload)
+            }
+          })
+          .addCase(refreshEvent.rejected, (state, action) => {
+              state.isLoading = false
+              state.isError = true
+              state.message = action.payload
           })
     },
 })

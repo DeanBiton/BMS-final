@@ -6,7 +6,7 @@ const maxWidth = 250
 function ProgressBar({current, max}) {
     const barWidth = useRef(new Animated.Value(0)).current;
     const finalWidth = (width);
-    const progressWidth = current/max >= 1 ? maxWidth : (current/max) * maxWidth
+    const progressWidth = max===0 ? 0 : (current/max >= 1 ? maxWidth : (current/max) * maxWidth)
     useEffect(() => {
         Animated.spring(barWidth, {
           toValue: finalWidth,
@@ -20,13 +20,13 @@ function ProgressBar({current, max}) {
     return (
     <View style={style.view}>
       <Animated.View style={{...style.progressBar, width: progressWidth}}/>
-        <Animated.Text style={style.label}>  
+        <Animated.Text style={current == 0 ? style.labelEmpty : style.label }>  
             {`${current}/${max}`}
         </Animated.Text>
     </View>
     )
 }
-//{current/max > 1 ? "100%" : `${Math.floor((current/max)*100)}%`}  
+// current == 0 ? style.Emptylabel : style.label
 const style = StyleSheet.create({
     contentContainer: {
         flex: 1,
@@ -49,6 +49,16 @@ const style = StyleSheet.create({
         zIndex: 1,  
         alignSelf: "center",
         width: 40,
+    },
+    labelEmpty:{
+        marginTop: 3,
+        fontSize:15,  
+        color: "black",  
+        position: "absolute",  
+        zIndex: 1,  
+        alignSelf: "center",
+        width: 60,
+        paddingLeft: 25,
     },
     view:{
         // flex: 1, 
