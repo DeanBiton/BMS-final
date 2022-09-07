@@ -54,8 +54,20 @@ const deleteEvent = async (id, token) => {
   return response.data
 }
 
+// Refresh event
+const refreshEvent = async (eventData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.put(API_URL + 'refresh/' + eventData.id, eventData, config)
+  return response.data
+}
+
 const eventService = {
-  createEvent, getEvents, updateEvent, deleteEvent
+  createEvent, getEvents, updateEvent, deleteEvent, refreshEvent
 }
 
 export default eventService

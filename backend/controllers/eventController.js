@@ -97,7 +97,26 @@ const updateEvent = asyncHandler(async (req, res) => {
         }
     )
     
-    res.status(200).json(event)
+    const updatedEventFunc = async event => {
+        let bloodTypeDonated = await BloodTypeTrack.findById(event.bloodTypeDonated.toString(),
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0}).exec()
+        let bloodTypeRegisters = await BloodTypeTrack.findById(event.bloodTypeRegisters.toString(), 
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0}).exec()
+        let bloodTypeDemands = await BloodTypeTrack.findById(event.bloodTypeDemands.toString(),
+        {_id: 0, createdAt: 0, updatedAt: 0, __v: 0, 'Not specified': 0}).exec()
+
+        let newEvent = {
+            ...event._doc,
+            bloodTypeDonated: bloodTypeDonated,
+            bloodTypeRegisters: bloodTypeRegisters,
+            bloodTypeDemands: bloodTypeDemands,
+        }
+        return newEvent
+    }
+
+    const updatedEvent = await updatedEventFunc(event)
+
+    res.status(200).json(updatedEvent)
 })
 
 // @desc Delete Event

@@ -57,6 +57,7 @@ export default function Checkout() {
         "O-":0
     })
 
+
     function handleChange(event) {
         const {name, value,type} = event.target
         setFormData(prevFormData => {
