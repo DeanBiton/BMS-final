@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {FaRegCalendarAlt, FaRegCalendarPlus, FaRegChartBar, FaSignOutAlt,FaUserEdit} from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
+import logo from '../assets/logo.jpeg'
 
 export default function SideMenu(){
     const dispatch = useDispatch()
@@ -16,8 +17,11 @@ export default function SideMenu(){
       }
     return (
         <ProSidebar>
+         
+
         <SidebarHeader>
-            <h1>B.M.S</h1>
+            {/* <h1>B.M.S</h1> */}
+            <img  id='logoSideBar' src={logo}/>
         </SidebarHeader>
 
         <Menu iconShape="circle">
@@ -44,11 +48,11 @@ export default function SideMenu(){
             <Link to="/bloodTypeUpdate" />
             </MenuItem >
         </Menu>
-        <SidebarFooter style={{ textAlign: 'center' }}>
+        <SidebarFooter className='SidebarFooter' style={{ textAlign: 'center' }}>
         <div
           className="sidebar-btn-wrapper"
           style={{
-            padding: '20px 24px',
+            padding: '20px 24px'
           }}
         >
           <button
