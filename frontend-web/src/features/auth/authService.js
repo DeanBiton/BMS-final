@@ -29,10 +29,23 @@ const logout = () => {
   localStorage.removeItem('user')
 }
 
+// Update blood type
+const updateBloodType = async (userData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.put(API_URL + userData.id, userData, config)
+  return response.data
+}
+
 const authService = {
   register,
   logout,
   login,
+  updateBloodType,
 }
 
 export default authService

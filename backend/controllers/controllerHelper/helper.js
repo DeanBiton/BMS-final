@@ -1,3 +1,9 @@
+const User = require('../../models/userModel')
+const Event = require('../../models/eventModel')
+const Register = require('../../models/registerModel')
+const Donation = require('../../models/donationModel')
+const BloodTypeTrack = require('../../models/BloodTypeTrackModel')
+
 const checkAuthorization = (req, res, isForMedicalOrganization) => {
     // Check for user    
     if (!req.user) {
@@ -70,8 +76,51 @@ const createFullDate = (date, time) => {
     return fullDate
 }
 
+const isBloodType = (name) => {
+    const bloodTypes = ["A+","A-","B+","B-","O+","O-","AB+","AB-"]
+    return bloodTypes.includes(name)
+}
+
+const updateBloodTypesInEvents = async(id, bloodType, pastBloodType) => {
+    if(bloodType !== pastBloodType)
+    {
+        let registerEvents = await Register.find({user: id})
+        let donationEvents = await Donation.find({user: id})
+        await registerEvents.forEach(async (register) => {
+            const event = await Event.findById(register.event)
+            const bloodTypetrack = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+            const founded = await BloodTypeTrack.findById(bloodTypetrack._id)
+            console.log(bloodType)
+            console.log(pastBloodType)
+    
+            const newBlood = await BloodTypeTrack.findByIdAndUpdate(bloodTypetrack, 
+                {
+                    [bloodType]: bloodTypetrack[bloodType] + 1,
+                    [pastBloodType]: bloodTypetrack[pastBloodType] - 1,
+                })
+            console.log(founded)
+            console.log(newBlood)
+        })
+        await donationEvents.forEach(async (register) => {
+            const event = await Event.findById(register.event)
+            const bloodTypetrack = await BloodTypeTrack.findById(event.bloodTypeRegisters)
+            const founded = await BloodTypeTrack.findById(bloodTypetrack._id)
+            console.log(bloodType)
+            console.log(pastBloodType)
+    
+            const newBlood = await BloodTypeTrack.findByIdAndUpdate(bloodTypetrack, 
+                {
+                    [bloodType]: bloodTypetrack[bloodType] + 1,
+                    [pastBloodType]: bloodTypetrack[pastBloodType] - 1,
+                })
+            console.log(founded)
+            console.log(newBlood)
+        })
+    }
+}
+
 const helper = {
-    checkAuthorization, readyEventData, getEventStatus, compareEventsDate
+    checkAuthorization, readyEventData, getEventStatus, compareEventsDate,isBloodType, updateBloodTypesInEvents
 }
 
 module.exports = helper
