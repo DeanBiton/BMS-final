@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, ScrollView, ActivityIndicator } from 'react-nat
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../../features/events/eventSlice'
 import { getRegisters } from '../../features/registers/registerSlice'
-import {resetRegisters} from '../../features/registers/registerSlice'
 import EventCard from './EventCard'
 import VegaScrollList from './Scroller/ScrollList'
 
@@ -15,7 +14,10 @@ function EventsScreen({navigation}) {
   const { events, isLoading, isError, message } = useSelector(
       (state) => state.events
   )
-  
+  const {registers, isLoadingRegister} = useSelector(
+    (state) => state.registers
+  )
+
   let eventCardElements
   useEffect(() => {
     if (isError) {
@@ -35,7 +37,7 @@ function EventsScreen({navigation}) {
     }
   }, [user, isError, message, dispatch])
 
-  if(isLoading)
+  if(isLoading || isLoadingRegister)
   {
     return(
       <View>

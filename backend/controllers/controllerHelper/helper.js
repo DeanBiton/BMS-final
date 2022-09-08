@@ -32,20 +32,13 @@ const readyEventData = async event => {
 const getEventStatus = (date, timeStart, timeEnd) => {
     const today = new Date()
 
-    let startDate = new Date(date)
-    startDate.setHours(new Date(timeStart).getHours())
-    startDate.setMinutes(new Date(timeStart).getMinutes())
-
-    let endDate = new Date(date)
-    endDate.setHours(new Date(timeEnd).getHours())
-    endDate.setMinutes(new Date(timeEnd).getMinutes())
+    let startDate = createFullDate(date, timeStart)
+    let endDate = createFullDate(date, timeEnd)
 
     let status
 
     if(today <  startDate)
-    {
         status = "Active"
-    }
     else if (today > endDate)
         status = "Ended"
     else 
@@ -54,8 +47,31 @@ const getEventStatus = (date, timeStart, timeEnd) => {
     return status
 }
 
+const compareEventsDate = (a, b) => {
+    let dateA = createFullDate(a.date, a.timeStart)
+    let dateB = createFullDate(b.date, b.timeStart)
+    let result
+
+    if(dateA <  dateB)
+        result = -1
+    else if (dateA > dateB)
+        result = 1
+    else 
+        result = 0
+
+    return result
+}
+
+const createFullDate = (date, time) => {
+    let fullDate = new Date(date)
+    fullDate.setHours(new Date(time).getHours())
+    fullDate.setMinutes(new Date(time).getMinutes())
+
+    return fullDate
+}
+
 const helper = {
-    checkAuthorization, readyEventData, getEventStatus
+    checkAuthorization, readyEventData, getEventStatus, compareEventsDate
 }
 
 module.exports = helper

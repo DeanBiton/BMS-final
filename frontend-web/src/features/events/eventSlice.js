@@ -144,10 +144,12 @@ export const eventSlice = createSlice({
           .addCase(updateEvent.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-            state.events = state.events.filter(
-              (event) => event._id !== action.payload._id
-            )
-            state.events.push(action.payload)
+            state.events = state.events.map((event) => {
+              if(event._id !== action.payload._id)
+                return event
+              else
+                return action.payload
+            })
           })
           .addCase(updateEvent.rejected, (state, action) => {
               state.isLoading = false

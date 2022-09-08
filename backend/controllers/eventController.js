@@ -29,7 +29,8 @@ const getEvents = asyncHandler(async (req, res) => {
 
         return newEvent
         }))
-    
+        
+    events.sort(helper.compareEventsDate)
     res.status(200).json(events)
 })
 
