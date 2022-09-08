@@ -16,8 +16,13 @@ import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
 import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
+<<<<<<< HEAD
 import DonateTable from './components/DonateTable'
 import BloodUpdate from './components/BloodTypeUpdate/BloodUpdate'
+=======
+import Auth from './components/DeanTests/Auth/Auth'
+
+>>>>>>> baae6ac (add API update bloodType)
 function App() {
   const { user } = useSelector((state) => state.auth)
   return (
@@ -32,7 +37,7 @@ function App() {
           <div className='container'>
             {!user && <Header />}
             <Routes>
-              <Route path='/' element={<Dashboard />} />
+              <Route path='/' element={<Auth />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/events' element={<Events />} />

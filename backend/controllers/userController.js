@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const helper = require('./controllerHelper/helper')
+
 
 // @desc    Register new user
 // @route   POST /api/users
@@ -88,8 +90,43 @@ const generateToken = (id) => {
   })
 }
 
+// @desc    Update bloodType
+// @route   PUT /api/users/:id
+// @access  Private
+const updateBloodType = asyncHandler(async (req, res) => {
+
+  helper.checkAuthorization(req, res, true)
+
+  const user = await User.findById(req.params.id)
+
+  if (!user) {
+    res.status(400)
+    throw new Error('User not found')
+  }
+
+  const pastBloodType = user.bloodType
+
+  // check valid blood type
+  if(!helper.isBloodType(req.body.bloodType))
+  {
+    res.status(401)
+    throw new Error('Invalid blood type')
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+    bloodType: req.body.bloodType,
+  })
+
+  const id = req.params.id
+  const bloodType = req.body.bloodType
+
+  helper.updateBloodTypesInEvents(id, bloodType, pastBloodType)
+  res.status(200).json(updatedUser)
+})
+
 module.exports = {
   registerUser,
   loginUser,
   getMe,
+  updateBloodType,
 }

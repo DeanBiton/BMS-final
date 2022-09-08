@@ -52,7 +52,7 @@ function Event({route}) {
     }   
 
     // Event
-    const date = new Date(event.date).toLocaleDateString('en-US')
+    const date = new Date(event.date).toLocaleDateString('en-GB')
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
 

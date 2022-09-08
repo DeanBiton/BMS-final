@@ -18,7 +18,7 @@ function EventCard(props) {
       <View style={styles.s}>
         <Text style={styles.text}>{
 `Location: ${event.city}, ${event.address}
-Date: ${date.toLocaleDateString('en-US')}
+Date: ${date.toLocaleDateString('en-GB')}
 Hours: ${timeStart} - ${timeEnd}`
           }
         </Text>

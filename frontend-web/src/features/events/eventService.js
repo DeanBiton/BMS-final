@@ -37,7 +37,6 @@ const updateEvent = async (eventData, token) => {
   }
 
   const response = await axios.put(API_URL + eventData.id, eventData, config)
-  console.log(response.data)
   return response.data
 }
 
