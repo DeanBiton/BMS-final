@@ -52,7 +52,7 @@ function Event({route}) {
     }   
 
     // Event
-    const date = new Date(event.date)
+    const date = new Date(event.date).toLocaleDateString('en-US')
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
 
@@ -80,7 +80,7 @@ function Event({route}) {
                 <View style={styles.cardContainer}>
                     <Image style={styles.imageStyle} source={image} />
                     <View style={styles.infoStyle}>
-                        <Text style={styles.titleStyle}>{`${event.city} ${date.toLocaleDateString('en-US')}`}</Text>
+                        <Text style={styles.titleStyle}>{`${event.city} ${date}`}</Text>
                         <View style={styles.row}>
                             <Ionicons name="md-location-outline" size={22} style={styles.screenIcon}/>
                             <Text style={styles.rowText}>{event.address}</Text>    

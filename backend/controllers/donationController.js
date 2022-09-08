@@ -3,6 +3,7 @@ const Donation = require('../models/donationModel')
 const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
 const BloodTypeTrack = require('../models/BloodTypeTrackModel')
+const User = require('../models/userModel')
 
 // @desc Get all Events donated
 // @route GET /api/donations
@@ -48,6 +49,26 @@ const setDonation = asyncHandler(async (req, res) => {
             [req.user.bloodType] : bloodTypeDonated[req.user.bloodType] + 1
         }
     )
+    
+    // update the lastDonated field in the user
+    let lastDonated
+     if(req.user.lastDonated)
+     {
+        if(new Date(req.user.lastDonated) < new Date(event.date))
+        {
+            lastDonated = event.date
+        }
+     }
+     else
+     {
+        lastDonated = event.date
+
+     } 
+
+    await User.findByIdAndUpdate(
+            req.user.id,
+            {lastDonated: lastDonated,}
+        )
 
     res.status(200).json(donation.event)
 })

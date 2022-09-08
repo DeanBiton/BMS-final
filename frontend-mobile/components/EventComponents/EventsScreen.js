@@ -21,7 +21,6 @@ function EventsScreen({navigation}) {
     if (isError) {
       console.log(message)
     }
-    console.log("Activate")
     if (!user) {
       navigation.navigate('Home')
     }
