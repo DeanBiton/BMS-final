@@ -16,7 +16,6 @@ import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
 import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
-import Donations from './components/DeanTests/Donation/Donations'
 function App() {
   const { user } = useSelector((state) => state.auth)
   return (
@@ -31,7 +30,7 @@ function App() {
           <div className='container'>
             {!user && <Header />}
             <Routes>
-              <Route path='/' element={<Donations />} />
+              <Route path='/' element={<Dashboard />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/events' element={<Events />} />

@@ -24,6 +24,7 @@ const getEvents = asyncHandler(async (req, res) => {
             bloodTypeDonated: bloodTypeDonated,
             bloodTypeRegisters: bloodTypeRegisters,
             bloodTypeDemands: bloodTypeDemands,
+            status: helper.getEventStatus(event._doc.date, event._doc.timeStart, event._doc.timeEnd)
         }
 
         return newEvent
