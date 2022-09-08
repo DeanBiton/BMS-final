@@ -1,7 +1,7 @@
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link, useNavigate } from 'react-router-dom';
-import {FaRegCalendarAlt, FaRegCalendarPlus, FaRegChartBar, FaSignOutAlt} from 'react-icons/fa'
+import {FaRegCalendarAlt, FaRegCalendarPlus, FaRegChartBar, FaSignOutAlt,FaUserEdit} from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 
@@ -39,6 +39,10 @@ export default function SideMenu(){
             <Link to="/stats/chart" />
             </MenuItem>
             </SubMenu>
+            <MenuItem icon={<FaUserEdit />}>
+            Update blood type
+            <Link to="/bloodTypeUpdate" />
+            </MenuItem >
         </Menu>
         <SidebarFooter style={{ textAlign: 'center' }}>
         <div

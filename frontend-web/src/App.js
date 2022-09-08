@@ -16,6 +16,8 @@ import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
 import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
+import DonateTable from './components/DonateTable'
+import BloodUpdate from './components/BloodTypeUpdate/BloodUpdate'
 function App() {
   const { user } = useSelector((state) => state.auth)
   return (
@@ -41,6 +43,8 @@ function App() {
               <Route path='/stats/chart' element={<Chart />} />
               <Route path='/test' element={<Test />} />
               <Route path='/signin' element={<SignInSide />} />
+              <Route path='/donated' element={<DonateTable />} />
+              <Route path='/bloodTypeUpdate' element={<BloodUpdate />} />
             </Routes>
           </div>
         </div>
