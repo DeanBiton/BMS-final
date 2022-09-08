@@ -25,7 +25,11 @@ const userSchema = mongoose.Schema(
       enum: ['None', 'Not specified', 'O-', 'O+', 'A-', 'A+', 'B-', 'B+', 'AB-', 'AB+'],
       require: true,
       default: 'Not specified',
-    }
+    },
+    lastDonated: {
+      type: Date,
+      default: null
+    },
   },
   {
     timestamps: true,

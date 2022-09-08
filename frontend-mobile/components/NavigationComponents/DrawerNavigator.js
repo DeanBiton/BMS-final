@@ -4,6 +4,8 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { DrawerActions } from '@react-navigation/native';
 import HomeScreen from '../HomeScreen';
 import EventsScreen from '../EventComponents/EventsScreen';
+import MyEventsScreen from '../EventComponents/MyEventsScreen';
+import ProfileScreen from '../ProfileScreen'
 import CustomDrawer from './CustomDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import headerImage from '../../assets/images/menu-bg.jpeg'
@@ -32,7 +34,32 @@ function DrawerNavigator(props) {
   return (
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>}
       screenOptions={options.drawerNavigator}>
-        
+        <Drawer.Screen name="Home" component={HomeScreen} style={{flexDirection: 'row',}} options={{
+          drawerIcon : ({color}) => (
+            <Ionicons name="home-outline" size={22} color={color} style={styles.drawerIcon}/>
+          ),
+          headerLeft: headerButtonElement,
+          headerStyle: styles.header,
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            color: "black",
+            left: 100
+          },
+        }}/>
+        <Drawer.Screen name="Profile" component={ProfileScreen} options={{
+          drawerIcon : ({color}) => (
+            <Ionicons name="person" size={22} color={color} style={styles.drawerIcon}/>
+          ),
+          headerLeft: headerButtonElement,
+          headerStyle: styles.header,
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontWeight: "bold",
+            color: "black",
+            left: 100
+          },
+        }}/>
         <Drawer.Screen name="Events" component={EventsScreen} options={{
           drawerIcon : ({color}) => (
             <Ionicons name="ios-calendar-sharp" size={22} color={color} style={styles.drawerIcon}/>
@@ -46,10 +73,9 @@ function DrawerNavigator(props) {
             left: 100
           },
         }}/>
-
-        <Drawer.Screen name="Home" component={HomeScreen} style={{flexDirection: 'row',}} options={{
+        <Drawer.Screen name="My Events" component={MyEventsScreen} options={{
           drawerIcon : ({color}) => (
-            <Ionicons name="home-outline" size={22} color={color} style={styles.drawerIcon}/>
+            <Ionicons name="folder-open-outline" size={22} color={color} style={styles.drawerIcon}/>
           ),
           headerLeft: headerButtonElement,
           headerStyle: styles.header,
@@ -59,7 +85,6 @@ function DrawerNavigator(props) {
             color: "black",
             left: 100
           },
-          
         }}/>
       </Drawer.Navigator>
   )

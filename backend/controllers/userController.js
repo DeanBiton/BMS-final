@@ -41,6 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
       isMedicalOrganization: user.isMedicalOrganization,
       bloodType: user.bloodType,
+      lastDonated: user.lastDonated,
     })
   } else {
     res.status(400)
@@ -65,6 +66,7 @@ const loginUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
       isMedicalOrganization: user.isMedicalOrganization,
       bloodType: user.bloodType,
+      lastDonated: user.lastDonated,
     })
   } else {
     res.status(400)
