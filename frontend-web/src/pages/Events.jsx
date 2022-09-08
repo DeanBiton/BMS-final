@@ -1,13 +1,20 @@
-import {useEffect} from "react"
+import { useState, useEffect } from 'react'
 import Card from "../components/Card"
 import data from "../dummy/Events"
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../features/events/eventSlice'
 import { useNavigate } from 'react-router-dom'
 
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Switch from '@mui/material/Switch';
+
 function Events() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const [present, setPresent] = useState(false)
 
     const { user } = useSelector((state) => state.auth)
     const { events, isLoading, isError, message } = useSelector(
@@ -32,19 +39,29 @@ function Events() {
         }
     }, [user, navigate, isError, message, dispatch])
 
-    const cards = events.map(event => {
-        //console.log(event)
-        return (
-            <Card 
-                key={event._id}
-                event={event}
-            />
-        )
-    })        
-    
+
+    const pastEvents = events.filter((event)=> {
+      return event.status === "Active" || event.status === "In progress"
+    })
+       
     return (
         <div>
-            {cards}
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={present} onChange={()=>{setPresent(!present)}} />
+            }
+            label="Past events"
+          />
+        </FormGroup>
+            
+        {(present? events:pastEvents).map(event => {
+        return (
+          <Card 
+              key={event._id}
+              event={event}
+          />)
+        })}
         </div>
     )
 }
