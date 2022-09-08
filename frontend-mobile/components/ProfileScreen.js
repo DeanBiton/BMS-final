@@ -11,7 +11,6 @@ const radius = 20;
 
 function ProfileScreen() {
   const { user } = useSelector((state) => state.auth)
-  const date = new Date(user.lastDonated)
 
   let nextRegisterDateText = "--/--/--"
   let bloodInsuranceDateText = "--/--/--"
@@ -19,6 +18,7 @@ function ProfileScreen() {
   
   if(user.lastDonated != null)
   {
+    const date = new Date(user.lastDonated)
     const nextRegisterDate = new Date(date.setMonth(date.getMonth()+3))
     const bloodInsuranceDate = new Date(date.setFullYear(date.getFullYear()+1))
     nextRegisterDateText = nextRegisterDate < today ? "Any" : nextRegisterDate.toLocaleDateString('en-US')
