@@ -208,12 +208,15 @@ h3 {
   }
 }
 
-.cardList::after {
+.cardList {
   content: '';
   clear: both;
   display: table;
   align-items: center;
-
+  background-color: #95dada;
+  border: 1px solid grey;
+  border-radius: 5px;
+  width: 100%;
 }
 
 .card__text {
@@ -374,3 +377,18 @@ input[type="number"] {
 
 }
   
+.circleShape {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: green;
+  border-radius: 50%;
+}
+
+.padding{
+  /* display: inline-flex; */
+  /* display: flex; */
+  column-gap: 20px;
+  /* row-gap: 20px; */
+  /* justify-content: space-between; */
+}
