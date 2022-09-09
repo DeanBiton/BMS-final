@@ -41,8 +41,20 @@ const deleteDonation = async (donationData, token) => {
     return response.data
 }
 
+// Get Event Registers
+const getEventRegisters = async (donationData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
+  const response = await axios.put(API_URL + 'event/' + donationData.id, donationData, config)
+  return response.data
+}
+
 const donationService = {
-  createDonation, getDonations, deleteDonation
+  createDonation, getDonations, deleteDonation, getEventRegisters
   }
   
   export default donationService

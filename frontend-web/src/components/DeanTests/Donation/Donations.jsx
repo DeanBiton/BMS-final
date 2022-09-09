@@ -24,7 +24,7 @@ function Donations() {
         }
         else
         {
-          dispatch(getDonations())
+          //dispatch(getDonations())
         }
     
         return () => {

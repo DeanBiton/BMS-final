@@ -90,31 +90,21 @@ const updateBloodTypesInEvents = async(id, bloodType, pastBloodType) => {
             const event = await Event.findById(register.event)
             const bloodTypetrack = await BloodTypeTrack.findById(event.bloodTypeRegisters)
             const founded = await BloodTypeTrack.findById(bloodTypetrack._id)
-            console.log(bloodType)
-            console.log(pastBloodType)
-    
             const newBlood = await BloodTypeTrack.findByIdAndUpdate(bloodTypetrack, 
                 {
                     [bloodType]: bloodTypetrack[bloodType] + 1,
                     [pastBloodType]: bloodTypetrack[pastBloodType] - 1,
                 })
-            console.log(founded)
-            console.log(newBlood)
         })
         await donationEvents.forEach(async (register) => {
             const event = await Event.findById(register.event)
             const bloodTypetrack = await BloodTypeTrack.findById(event.bloodTypeRegisters)
             const founded = await BloodTypeTrack.findById(bloodTypetrack._id)
-            console.log(bloodType)
-            console.log(pastBloodType)
-    
             const newBlood = await BloodTypeTrack.findByIdAndUpdate(bloodTypetrack, 
                 {
                     [bloodType]: bloodTypetrack[bloodType] + 1,
                     [pastBloodType]: bloodTypetrack[pastBloodType] - 1,
                 })
-            console.log(founded)
-            console.log(newBlood)
         })
     }
 }

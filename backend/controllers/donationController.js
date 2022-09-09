@@ -4,6 +4,7 @@ const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
 const BloodTypeTrack = require('../models/BloodTypeTrackModel')
 const User = require('../models/userModel')
+const Register = require('../models/registerModel')
 
 // @desc Get all Events donated
 // @route GET /api/donations
@@ -107,6 +108,28 @@ const deleteDonation = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id})
 })
 
+// @desc get event registers and donations
+// @route POST /api/donations/event/:id
+// @access Private
+const getEventRegisters = asyncHandler(async (req, res) => {
+
+    const event = await Event.findById(req.params.id, {createdAt: 0, updatedAt: 0, __v: 0})
+
+    if(!event){
+        res.status(400)
+        throw new Error("Event not found")
+    }
+
+    registers = []
+    donations = []
+
+    ;(await Register.find({event : event})).forEach(async (register) => registers.push(await User.findById(register.user)))
+    ;(await Donation.find({event : event})).forEach(async (donation) => donations.push(await User.findById(donation.user)))
+
+    console.log(registers)
+    res.status(200).json({registers: registers, donations: donations})
+})
+
 module.exports = {
-    getDonations, setDonation, deleteDonation
+    getDonations, setDonation, deleteDonation, getEventRegisters
 }

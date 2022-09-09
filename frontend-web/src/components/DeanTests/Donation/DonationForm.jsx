@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createDonation, deleteDonation } from '../../../features/donations/donationSlice'
+import { createDonation, deleteDonation, getEventRegisters } from '../../../features/donations/donationSlice'
 
 function DonationForm() {
     const dispatch = useDispatch()
@@ -45,10 +45,32 @@ function DonationForm() {
 
     function handleSubmit2(event) {
         event.preventDefault()
-        dispatch(deleteDonation(formData2))
-        console.log(formData2)
+        dispatch(deleteDonation(formData3))
+        console.log(formData3)
     }
     
+    const [formData3, setFormData3] = useState(
+        {
+            id: "",
+        }
+    )
+
+    function handleChange3(event) {
+        const {name, value} = event.target
+        setFormData3(prevFormData => {
+            return {
+                ...prevFormData,
+                [name]: value
+            }
+        })
+    }
+
+    function handleSubmit3(event) {
+        event.preventDefault()
+        dispatch(getEventRegisters(formData3))
+        console.log(formData3)
+    }
+
     return (
         <>
             <form onSubmit={handleSubmit1}>
@@ -71,6 +93,19 @@ function DonationForm() {
                     onChange={handleChange2}
                     name="id"
                     value={formData2.id}
+                />
+                <br />
+                <br />
+                <button>Submit</button>
+            </form>
+
+            <form onSubmit={handleSubmit3}>
+                <input
+                    type="text"
+                    placeholder="id"
+                    onChange={handleChange3}
+                    name="id"
+                    value={formData3.id}
                 />
                 <br />
                 <br />
