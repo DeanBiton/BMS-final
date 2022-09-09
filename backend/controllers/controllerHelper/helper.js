@@ -4,6 +4,10 @@ const Register = require('../../models/registerModel')
 const Donation = require('../../models/donationModel')
 const BloodTypeTrack = require('../../models/BloodTypeTrackModel')
 
+const getRandomId = () => {
+    return (Math.floor(Math.random() * 1000000000) + 1000000000).toString().substring(1);
+}
+
 const checkAuthorization = (req, res, isForMedicalOrganization) => {
     // Check for user    
     if (!req.user) {
@@ -110,7 +114,7 @@ const updateBloodTypesInEvents = async(id, bloodType, pastBloodType) => {
 }
 
 const helper = {
-    checkAuthorization, readyEventData, getEventStatus, compareEventsDate,isBloodType, updateBloodTypesInEvents
+    getRandomId, checkAuthorization, readyEventData, getEventStatus, compareEventsDate,isBloodType, updateBloodTypesInEvents
 }
 
 module.exports = helper

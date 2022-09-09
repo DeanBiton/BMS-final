@@ -30,6 +30,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   // Create user
   const user = await User.create({
+    tz: helper.getRandomId(),
     name,
     email,
     password: hashedPassword,
@@ -38,6 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
   if (user) {
     res.status(201).json({
       _id: user.id,
+      tz: user.tz,
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
@@ -63,6 +65,7 @@ const loginUser = asyncHandler(async (req, res) => {
   if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       _id: user.id,
+      tz: user.tz,
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
@@ -97,7 +100,7 @@ const updateBloodType = asyncHandler(async (req, res) => {
 
   helper.checkAuthorization(req, res, true)
 
-  const user = await User.findById(req.params.id)
+  const user = await User.findOne({tz : req.params.id})
 
   if (!user) {
     res.status(400)
@@ -113,11 +116,11 @@ const updateBloodType = asyncHandler(async (req, res) => {
     throw new Error('Invalid blood type')
   }
 
-  const updatedUser = await User.findByIdAndUpdate(req.params.id, {
+  const updatedUser = await User.findByIdAndUpdate(user._id, {
     bloodType: req.body.bloodType,
   })
 
-  const id = req.params.id
+  const id = user._id
   const bloodType = req.body.bloodType
 
   helper.updateBloodTypesInEvents(id, bloodType, pastBloodType)
