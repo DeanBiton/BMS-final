@@ -2,6 +2,11 @@ const mongoose = require('mongoose')
 
 const userSchema = mongoose.Schema(
   {
+    tz: {
+      type: String,
+      required: [true, 'Please add an id'],
+      unique: true,
+    },
     name: {
       type: String,
       required: [true, 'Please add a name'],
