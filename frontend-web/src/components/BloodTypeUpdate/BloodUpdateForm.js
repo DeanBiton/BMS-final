@@ -21,9 +21,9 @@ export default function AddressForm({formData,handleChange,handleUserIdChange,op
         <Grid item xs={12} >
           <TextField
             required
-            name="userId"
+            name="id"
             label="User ID"
-            value={formData.userId}
+            value={formData.id}
              onChange={handleUserIdChange}
           />
         </Grid>

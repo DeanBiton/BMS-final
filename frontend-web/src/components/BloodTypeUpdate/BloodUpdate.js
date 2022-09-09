@@ -16,7 +16,7 @@ import BloodForm from './BloodUpdateForm';
 import { Dayjs } from 'dayjs';
 import * as dayjs from 'dayjs'
 import { useDispatch } from 'react-redux'
-import { createEvent } from '../../features/events/eventSlice'
+import { updateBloodType } from '../../features/auth/authSlice'
 
 function Copyright() {
   return (
@@ -49,7 +49,7 @@ export default function Checkout() {
     const dispatch = useDispatch()
 
     const[formData,setFormData] = React.useState({
-          userId:"",
+          id:"",
           bloodType:""
     })
 
@@ -101,7 +101,7 @@ export default function Checkout() {
   };
 
   function sendForm(){
-   // dispatch(createEvent(formData))
+    dispatch(updateBloodType(formData))
    console.log(formData)
   }
 
