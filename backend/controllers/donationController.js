@@ -22,22 +22,24 @@ const getDonations = asyncHandler(async (req, res) => {
 // @route POST /api/donations
 // @access Private
 const setDonation = asyncHandler(async (req, res) => {
-    helper.checkAuthorization(req, res, false)
+    helper.checkAuthorization(req, res, true)
 
-    // check if already donated
+    await Promise.all(req.body.usersId.forEach(async(userID)=>{
+            // check if already donated
     const existedDonation = await Donation.find({
-        user: req.user.id,
+        user: userID,
         event: req.body.eventId,
     })
 
     if(existedDonation.length) {
-        res.status(401)
-        throw new Error('User already donated')
+        return
     }
+
+    const user = await User.findById(userID)
 
     // create new donation
     let donation = await Donation.create({
-        user: req.user.id,
+        user: userID,
         event: req.body.eventId,
     })
 
@@ -47,31 +49,31 @@ const setDonation = asyncHandler(async (req, res) => {
     await BloodTypeTrack.findByIdAndUpdate(
         bloodTypeDonated._id,
         {
-            [req.user.bloodType] : bloodTypeDonated[req.user.bloodType] + 1
+            [user.bloodType] : bloodTypeDonated[user.bloodType] + 1
         }
     )
     
     // update the lastDonated field in the user
-    let lastDonated
-     if(req.user.lastDonated)
-     {
-        if(new Date(req.user.lastDonated) < new Date(event.date))
+        let lastDonated
+        if(user.lastDonated)
+        {
+            if(new Date(user.lastDonated) < new Date(event.date))
+            {
+                lastDonated = event.date
+            }
+        }
+        else
         {
             lastDonated = event.date
-        }
-     }
-     else
-     {
-        lastDonated = event.date
+        } 
 
-     } 
-
-    await User.findByIdAndUpdate(
-            req.user.id,
+        await User.findByIdAndUpdate(
+            user._id,
             {lastDonated: lastDonated,}
         )
+    }))
 
-    res.status(200).json(donation.event)
+    res.status(200).json(req.body.eventId)
 })
 
 // @desc Delete donation
@@ -120,11 +122,13 @@ const getEventRegisters = asyncHandler(async (req, res) => {
     }
 
     const registers = await Register.find({event : event})
-    await registers.map(async(register) => await User.findById(register.user))
+    const allRegisters = await Promise.all(registers.map(async(register) => await User.findById(register.user)))
+    const finalRegisters = await Promise.all(allRegisters.map(async(register) => await helper.addIsDonatedField(register, event._id)))
+    /*
     const donations = await Donation.find({event : event})
-    await donations.map(async(donation) => await User.findById(donation.user))
-
-    res.status(200).json({registers: registers, donations: donations})
+    const allDonations = await Promise.all(donations.map(async(donation) => await User.findById(donation.user)))
+*/
+    res.status(200).json(finalRegisters)
 })
 
 module.exports = {

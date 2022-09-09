@@ -99,7 +99,7 @@ export const donationSlice = createSlice({
             .addCase(createDonation.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.donations.push(action.payload)
+                //state.donations.push(action.payload)
             })
             .addCase(createDonation.rejected, (state, action) => {
                 state.isLoading = false

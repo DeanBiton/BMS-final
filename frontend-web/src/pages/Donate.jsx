@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {getEventRegisters, createDonation, reset } from '../features/donations/donationSlice'
 import { useNavigate } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
+import Spinner from '../components/Spinner'
 
 export default function Donate(){
     // const event_id = useLocation().state.event_id
@@ -39,10 +40,26 @@ export default function Donate(){
         }
     }, [user, navigate, isError, message, dispatch])
 
+    // const [renderer, setRenderer] = useState(donations)
+
+    if(isLoading || donations.length===0)
+    {
+        return (<Spinner />)
+    }
 
     console.log(donations)
+    // const donated = donations.donations
+    // const data = donations.registers.map((user) => {
+    //     if(donated.some(donation => donation.tz===user.tz))
+    //         return {...user, isDonated : true}
+    //     else 
+    //         return {...user, isDonated : false}
 
+    // }
+    // )
+    // console.log(data)
+    
     return(
-        <DonateTable/>
+        <DonateTable rows={donations} userId={user._id} eventId={event_id}/>
     )
 }

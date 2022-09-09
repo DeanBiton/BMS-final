@@ -4,59 +4,49 @@ import { DataGrid } from '@mui/x-data-grid';
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
 import Checkbox from '@mui/material/Checkbox';
+import { useState, useEffect } from 'react'
+import { Button } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux'
+import {getEventRegisters, createDonation, reset } from '../features/donations/donationSlice'
+import { useNavigate } from 'react-router-dom'
+
 const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
-  {
-    field: 'firstName',
-    headerName: 'First name',
+   {
+    field: 'tz',
+    headerName: 'ID',
     width: 150,
-    editable: true,
-    type: "boolean",
-    // valueOptions: ["United Kingdom", "Spain", "Brazil"]
-  },
+  }, 
   {
-    field: 'lastName',
-    headerName: 'Last name',
+    field: 'name',
+    headerName: 'Name',
     width: 150,
-    editable: true,
-    type: "boolean",
-
   },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 110,
-    editable: true,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
 
-const rows = [
-  { id: 123, lastName: true, firstName: 'Jon', age: 35, isSelected:true },
-  { id: 2, lastName: false, firstName: 'Cersei', age: 42,isSelected:false  },
-  { id: 3, lastName: true, firstName: 'Jaime', age: 45,isSelected:true  },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16,isSelected:true  },
-//   { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-//   { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-//   { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-//   { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-//   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+]
 
-export default function DataGridDemo() {
+
+
+export default function DataGridDemo({rows, userId, eventId}) {
+
+  const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+
     const [selectionModel, setSelectionModel] = React.useState(() =>
-    rows.filter((r) => r.isSelected===true).map((r) => r.id),
+    rows.filter((r) => r.isDonated===true).map((r) => r._id),
   );
   console.log(selectionModel)
+
+  function handleClick(){
+    const parameters = {
+      id:userId,
+      usersId:selectionModel,
+      eventId:eventId
+    }
+    // console.log(parameters)
+    dispatch(createDonation(parameters))
+    navigate('/events');
+  }
 
   return (
     <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
@@ -77,8 +67,11 @@ export default function DataGridDemo() {
         experimentalFeatures={{ newEditingApi: true }}
         selectionModel={selectionModel}
         onSelectionModelChange={setSelectionModel}
+        getRowId={(row) => row._id}
       />
     </Box>
+        <Button variant="contained" onClick={handleClick}>Update</Button>
+
     </Paper>
     </Container>
   );
