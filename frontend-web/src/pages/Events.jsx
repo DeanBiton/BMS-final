@@ -9,6 +9,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Switch from '@mui/material/Switch';
+import Spinner from '../components/Spinner'
 
 function Events() {
     const navigate = useNavigate()
@@ -39,6 +40,10 @@ function Events() {
         }
     }, [user, navigate, isError, message, dispatch])
 
+    if(isLoading || events.length ===0)
+    {
+        return (<Spinner />)
+    }
 
     const pastEvents = events.filter((event)=> {
       return event.status === "Active" || event.status === "In progress"

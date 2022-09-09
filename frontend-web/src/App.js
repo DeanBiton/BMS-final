@@ -16,7 +16,7 @@ import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
 import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
-import DonateTable from './components/DonateTable'
+import Donate from './pages/Donate'
 import BloodUpdate from './components/BloodTypeUpdate/BloodUpdate'
 import Donations from './components/DeanTests/Donation/Donations'
 
@@ -45,7 +45,7 @@ function App() {
               <Route path='/stats/chart' element={<Chart />} />
               <Route path='/test' element={<Test />} />
               <Route path='/signin' element={<SignInSide />} />
-              <Route path='/donated' element={<DonateTable />} />
+              <Route path='/donated' element={<Donate />} />
               <Route path='/bloodTypeUpdate' element={<BloodUpdate />} />
             </Routes>
           </div>

@@ -113,8 +113,19 @@ const updateBloodTypesInEvents = async(id, bloodType, pastBloodType) => {
     }
 }
 
+const addIsDonatedField = async (user, event) => {
+    const donation = await Donation.find({event : event, user : user._id})
+    let res
+    if(donation.length !== 0)
+        res = {...user._doc, isDonated: true}
+    else
+        res = {...user._doc, isDonated: false}
+    return res
+}
+
 const helper = {
-    getRandomId, checkAuthorization, readyEventData, getEventStatus, compareEventsDate,isBloodType, updateBloodTypesInEvents
+    getRandomId, checkAuthorization, readyEventData, getEventStatus, compareEventsDate,isBloodType, updateBloodTypesInEvents,
+    addIsDonatedField,
 }
 
 module.exports = helper

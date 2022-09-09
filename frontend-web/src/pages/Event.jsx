@@ -63,6 +63,8 @@ function Test(){
         dispatch(deleteEvent(id))
         navigate('/events')
     }
+    
+     const showButton=  event.status==='Ended'? false:true
 
     return(
         <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
@@ -71,8 +73,11 @@ function Test(){
         <AddressForm formData={event} handleFunc={undefined} handleDateTimeFunc={undefined} isDisable={true} />
         {!showDemand? (
                 <>
-                <div className='wrapperRightSide'> 
-                <Button id='showDemand' variant="contained" onClick={()=>setShowDemand(true)} >Update Demand</Button>
+         
+                <div className='wrapperRightSide showDemand'>       
+                {showButton &&
+                    <Button variant="contained" onClick={()=>setShowDemand(true)} >Update Demand</Button>
+                } 
                 </div>
                 <SimpleTable className="eventTable"rows={[
                     {Type:"bloodTypeDonated",...event.bloodTypeDonated},
@@ -82,7 +87,9 @@ function Test(){
         ) : (
             <UpdateDemand  eventId ={event._id}data={event.bloodTypeDemands} handle={()=>setShowDemand(false)}/>
         )}
-      <Button id='deleteEvent' variant="contained" onClick={handleDelete}>Delete Event</Button>
+        {showButton &&
+              <Button id='deleteEvent' variant="contained" onClick={handleDelete}>Delete Event</Button>
+        }
         </Paper>
         </Container>
     )
