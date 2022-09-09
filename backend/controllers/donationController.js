@@ -114,19 +114,16 @@ const deleteDonation = asyncHandler(async (req, res) => {
 const getEventRegisters = asyncHandler(async (req, res) => {
 
     const event = await Event.findById(req.params.id, {createdAt: 0, updatedAt: 0, __v: 0})
-
     if(!event){
         res.status(400)
         throw new Error("Event not found")
     }
 
-    registers = []
-    donations = []
+    const registers = await Register.find({event : event})
+    await registers.map(async(register) => await User.findById(register.user))
+    const donations = await Donation.find({event : event})
+    await donations.map(async(donation) => await User.findById(donation.user))
 
-    ;(await Register.find({event : event})).forEach(async (register) => registers.push(await User.findById(register.user)))
-    ;(await Donation.find({event : event})).forEach(async (donation) => donations.push(await User.findById(donation.user)))
-
-    console.log(registers)
     res.status(200).json({registers: registers, donations: donations})
 })
 

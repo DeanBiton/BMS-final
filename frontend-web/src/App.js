@@ -18,7 +18,7 @@ import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
 import DonateTable from './components/DonateTable'
 import BloodUpdate from './components/BloodTypeUpdate/BloodUpdate'
-import Auth from './components/DeanTests/Auth/Auth'
+import Donations from './components/DeanTests/Donation/Donations'
 
 function App() {
   const { user } = useSelector((state) => state.auth)
@@ -34,7 +34,7 @@ function App() {
           <div className='container'>
             {!user && <Header />}
             <Routes>
-              <Route path='/' element={<Auth />} />
+              <Route path='/' element={<Donations />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
               <Route path='/events' element={<Events />} />
