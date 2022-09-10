@@ -16,39 +16,42 @@ function ProfileScreen() {
   let bloodInsuranceDateText = "--/--/--"
   const today = new Date()
   
-  if(user.lastDonated != null)
+  if(!user)
   {
-    const date = new Date(user.lastDonated)
-    const nextRegisterDate = new Date(date.setMonth(date.getMonth()+3))
-    const bloodInsuranceDate = new Date(date.setFullYear(date.getFullYear()+1))
-    nextRegisterDateText = nextRegisterDate < today ? "Any" : nextRegisterDate.toLocaleDateString('en-US')
-    bloodInsuranceDateText = bloodInsuranceDate < today ? "Any" : bloodInsuranceDate.toLocaleDateString('en-US')
+    return <></>
   }
-
+  
+  const date = new Date(user.lastDonated)
+  const date2 = new Date(user.lastDonated)
+  const nextRegisterDate = new Date(date.setMonth(date.getMonth()+3))
+  const bloodInsuranceDate = new Date(date2.setFullYear(date2.getFullYear()+1))
+  nextRegisterDateText = nextRegisterDate < today ? "Any" : nextRegisterDate.toLocaleDateString('en-GB')
+  bloodInsuranceDateText = bloodInsuranceDate < today ? "Any" : bloodInsuranceDate.toLocaleDateString('en-GB')
+  
   return (
     <View style={styles.container}>
       <View style={styles.cardContainer}>
         <View style={styles.infoStyle}>
           <Image source={profileImage} style={styles.imageHeader}/>
           <View style={styles.row}>
-            <Text style={styles.rowText}>Name:</Text>
-            <Text style={styles.rowText}>{user.name}</Text>
+            <Text style={styles.keyText}>Name:</Text>
+            <Text style={styles.valueText}>{user.name}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.rowText}>Email:</Text>
-            <Text style={styles.rowText}>{user.email}</Text>
+            <Text style={styles.keyText}>Email:</Text>
+            <Text style={styles.valueText}>{user.email}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.rowText}>Blood type:</Text>
-            <Text style={styles.rowText}>{user.bloodType}</Text>
+            <Text style={styles.keyText}>Blood type:</Text>
+            <Text style={styles.valueText}>{user.bloodType}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.rowText}>Can register from:</Text>
-            <Text style={styles.rowText}>{nextRegisterDateText}</Text>
+            <Text style={styles.keyTextDate}>Can register from:</Text>
+            <Text style={styles.valueText}>{nextRegisterDateText}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.rowText}>Blood insurance expired in:</Text>
-            <Text style={styles.rowText}>{bloodInsuranceDateText}</Text>
+            <Text style={styles.keyTextDate}>Blood insurance expired in:</Text>
+            <Text style={styles.valueText}>{bloodInsuranceDateText}</Text>
           </View>
         </View>
       </View>
@@ -101,12 +104,24 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#f2f2f2',
   },
-  rowText:{
+  valueText:{
     fontWeight: '500',
     fontSize: 15,
     paddingRight: '10%',
-    // width: '30%'
   },
+  keyText:{
+    fontWeight: '500',
+    fontSize: 15,
+    width: '30%'
+  },
+  keyTextDate:{
+    fontWeight: '500',
+    fontSize: 15,
+    width: '70%'
+  },
+  inner:{
+    flexDirection: 'row-reverse'
+  }
 });
 
 export default ProfileScreen

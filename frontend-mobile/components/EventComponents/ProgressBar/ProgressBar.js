@@ -2,11 +2,11 @@ import {useRef, FunctionComponent, useEffect} from 'react';
 import {Animated, Dimensions, FlatList, StyleSheet, View} from 'react-native';
 
 const {width} = Dimensions.get('screen');
-const maxWidth = 250
+const maxWidth = 230
 function ProgressBar({current, max}) {
     const barWidth = useRef(new Animated.Value(0)).current;
     const finalWidth = (width);
-    const progressWidth = max===0 ? 0 : (current/max >= 1 ? maxWidth : (current/max) * maxWidth)
+    const progressWidth = current/max >= 1 ? maxWidth : (current/max) * maxWidth
     useEffect(() => {
         Animated.spring(barWidth, {
           toValue: finalWidth,
@@ -20,13 +20,13 @@ function ProgressBar({current, max}) {
     return (
     <View style={style.view}>
       <Animated.View style={{...style.progressBar, width: progressWidth}}/>
-        <Animated.Text style={current == 0 ? style.labelEmpty : style.label }>  
+        <Animated.Text style={style.label}>  
             {`${current}/${max}`}
         </Animated.Text>
     </View>
     )
 }
-// current == 0 ? style.Emptylabel : style.label
+//{current/max > 1 ? "100%" : `${Math.floor((current/max)*100)}%`}  
 const style = StyleSheet.create({
     contentContainer: {
         flex: 1,
@@ -48,21 +48,11 @@ const style = StyleSheet.create({
         position: "absolute",  
         zIndex: 1,  
         alignSelf: "center",
-        width: 40,
-    },
-    labelEmpty:{
-        marginTop: 3,
-        fontSize:15,  
-        color: "black",  
-        position: "absolute",  
-        zIndex: 1,  
-        alignSelf: "center",
-        width: 60,
-        paddingLeft: 25,
+        width: 50,
     },
     view:{
-        // flex: 1, 
-        // flexDirection: 'row-reverse',
+        //flex: 1, 
+        //flexDirection: 'row-reverse',
     }
 });
 
