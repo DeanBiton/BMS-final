@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react'
-import { View, Text, ScrollView, StyleSheet, Dimensions, Image } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Dimensions, Image, ActivityIndicator } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { createRegister, resetRegisters, deleteRegister } from '../../features/registers/registerSlice'
 import { refreshEvent } from '../../features/events/eventSlice'
-import image from '../../assets/images/cities/Modiin.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProgressBar from './ProgressBar/ProgressBar';
 import CustomButton from '../CustomButton/CustomButton'
-
-function delay(time) {
-  return new Promise(resolve => setTimeout(resolve, time));
-}
+import cities from '../../assets/images/cities/cities'
+import image from '../../assets/images/cities/Modiin.jpg'
 
 function Event({route}) {
     const {id} = route.params
-
+    
     //Register
     const dispatch = useDispatch()
     const { user } = useSelector((state) => state.auth)
@@ -24,10 +21,14 @@ function Event({route}) {
     const {events} = useSelector(
         (state) => state.events
     )
-
+    
+    // prevent render error when updating code only (not needed for production)
+    if(!events)
+      return <></>
+    
     const [event, setEvent] = useState(events.find((event) => event._id === id))
     const [rerender, setRerender] = useState(false);
-    
+
     let register = registers.find((register) =>{
         return register === event._id
     })
@@ -50,12 +51,11 @@ function Event({route}) {
             register = undefined
         }
     }   
-
     // Event
     const date = new Date(event.date).toLocaleDateString('en-GB')
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
-
+    const status = event.status
     const progressBarElements = Object.keys(event.bloodTypeDonated).map((name) =>{
         if(name !== 'Not specified')
         {
@@ -70,17 +70,28 @@ function Event({route}) {
             return (<View key={name}></View>)
     })
 
+    const userDate = new Date(user.lastDonated)
+    const nextRegisterDate = new Date(userDate.setMonth(userDate.getMonth()+3))
+    //const nextRegisterDate = new Date(nextRegisterDatee.setDay(nextRegisterDatee.getDay()+1))
 
-
-
-
+    let type
+    if(user.lastDonated !== null && new Date(event.date) < nextRegisterDate)
+      type = "No permission"
+    else if(status === "Ended")
+      type = status
+    else if (register === undefined)
+      type = register
+    else 
+      type = "Unregister"
+    
     return (
         <ScrollView>
             <View style={styles.container}>
                 <View style={styles.cardContainer}>
                     <Image style={styles.imageStyle} source={image} />
                     <View style={styles.infoStyle}>
-                        <Text style={styles.titleStyle}>{`${event.city} ${date}`}</Text>
+                        <Text style={styles.titleStyle}>{`${date}`}</Text>
+                        <Text style={styles.titleStyle}>{`${event.city}`}</Text>
                         <View style={styles.row}>
                             <Ionicons name="md-location-outline" size={22} style={styles.screenIcon}/>
                             <Text style={styles.rowText}>{event.address}</Text>    
@@ -90,9 +101,35 @@ function Event({route}) {
                             <Text style={styles.rowText}>{`${timeStart}-${timeEnd}`}</Text>    
                         </View>
                         {progressBarElements}
-                        <View style={styles.button}>
-                            <CustomButton onPress={onPress} text={isLoadingRegister? "" : (register === undefined? "Register" : "Unregister")} />
-                        </View>
+
+                        {isLoadingRegister? (
+                          <View style={styles.buttonLoading}>
+                            <CustomButton 
+                              onPress={onPress} 
+                              text={""} 
+                              disable={true}
+                              type={undefined}
+                            />
+                            <View style={styles.activityIndicator}>
+                              <ActivityIndicator color="#ffffff"/>
+                            </View>
+                          </View>
+                        ) : (
+                          <View style={type==="No permission" ? styles.buttonWithMessage : styles.button}>
+                            <CustomButton 
+                              onPress={onPress} 
+                              text={type==="No permission"? "3 months since last donation hasn't past" : status === "Ended"? "Ended" : isLoadingRegister? "" : (register === undefined? "Register" : "Unregister")} 
+                              disable={status === "Ended" || type==="No permission"}
+                              type={type}
+                            />
+                          </View>
+                        )}
+                        
+                        
+                        {type==="No permission" &&
+                        <Text style={styles.message}>
+                          Can register from: {nextRegisterDate.toLocaleDateString('en-GB')}
+                        </Text>}
                     </View>
                 </View>
             </View>
@@ -109,7 +146,7 @@ const styles = StyleSheet.create({
       // flex: 1,
       // justifyContent: "center",
       //backgroundColor: '#D3D3D3',
-      height: '100%',
+      height: '130%',
       marginTop: 30,
       marginLeft: '5%',
       paddingBottom: 10,
@@ -117,7 +154,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         width: deviceWidth - offset,
         backgroundColor: '#D3D3D3',
-        //height: 500,
+        //height: '92%',
         borderRadius: radius,
 
         shadowColor: '#000',
@@ -146,7 +183,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '800',
         textAlign: 'center',
-        paddingBottom: 10,
+        paddingBottom: 7,
       },
       row:{
         flex: 1, 
@@ -164,11 +201,33 @@ const styles = StyleSheet.create({
       bloodName:{
         paddingTop: 5,
         paddingRight: 10,
+        width: 60,
       },
       button:{
-        paddingTop: 95,
-        marginBottom: 10,
+        paddingTop: 21,
+        marginBottom: 39,
         width: '110%',
+      },
+      buttonWithMessage:{
+        paddingTop: 21,
+        marginBottom: 5,
+        width: '110%',
+      },
+      buttonLoading:{
+        paddingTop: 21,
+        marginBottom: 19,
+        width: '110%',
+      },
+      activityIndicator:{
+        top: -40,
+        right: 14,
+      },
+      message:{
+        alignSelf: 'center',
+        fontWeight: '500',
+        fontSize: 15,
+        marginBottom: 10,
+        color: '#FF0000',
       }
 });
 

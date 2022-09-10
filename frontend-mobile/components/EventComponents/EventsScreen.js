@@ -40,18 +40,23 @@ function EventsScreen({navigation}) {
   if(isLoading || isLoadingRegister)
   {
     return(
-      <View>
-        <ActivityIndicator />
+      <View style={styles.loading}>
+        <ActivityIndicator size="large"/>
       </View>
     )
   }
 
+  const nonPastEvents = events.filter(event => event.status !== "Ended")
+
   eventCardElements = 
     <VegaScrollList
       distanceBetweenItem={12}
-      data={events}
+      data={nonPastEvents}
       keyExtractor={event => event._id}
-      renderItem={event =><EventCard event={event} navigation={navigation}/>}>
+      renderItem={event => {
+
+        return <EventCard event={event} navigation={navigation}/>
+      }}>
     </VegaScrollList>
 
   return (
@@ -68,5 +73,9 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     backgroundColor: '#D3D3D3',
     height: '100%',
+  },
+  loading:{
+    height: '100%',
+    justifyContent: 'center',
   },
 });

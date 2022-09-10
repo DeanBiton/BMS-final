@@ -32,3 +32,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
 });
+
+// #00043c  rgba(0,4,60,255) logo blue
+// #ef0114 || rgb(239,1,20) logo red 
+// #474e68 logo grey

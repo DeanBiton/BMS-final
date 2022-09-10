@@ -93,14 +93,15 @@ function DrawerNavigator(props) {
 const options = {
   drawerNavigator:{
     //headerShown: false,
-    drawerActiveBackgroundColor: '#aa18ea',
+    drawerActiveBackgroundColor: '#474e68', //Press color, blue - 0037ff, purple - aa18ea
     drawerActiveTintColor: '#fff',
     drawerInactiveTintColor: '#333',
     drawerPosition: 'left',
     drawerLabelStyle: {
-      marginLeft: -25,
+      marginLeft: -45,
       //fontFamily: 'Roboto-Medium',
       fontSize: 15,
+      width: 80
     },
     drawerStyle: {
       width: '80%',
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
     left: 320,
   },
   header:{
-    backgroundColor: "rgb(239,1,20)", // logo red : '#ef0114' || rgb(239,1,20)
+    backgroundColor: "rgb(71, 78, 104)", // header color logo red : '#ef0114' || rgb(239,1,20)
     //color: '#ef0114'
   }
 });

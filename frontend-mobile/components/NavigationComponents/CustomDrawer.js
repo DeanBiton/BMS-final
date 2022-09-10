@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, Image, TouchableOpacity, StyleSheet,} from
 import { useSelector, useDispatch } from 'react-redux';
 import { logout, reset } from '../../features/auth/authSlice';
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
-import menuBackground from '../../assets/images/menu-bg.jpeg'
+import menuBackground from '../../assets/images/menu-blue.png' // menu background image (color)
 import logo from '../../assets/images/logo.jpeg'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -51,10 +51,10 @@ function CustomDrawer(props) {
     
   )
 }
-
+//    purple: '#8200d6',
 const styles = StyleSheet.create({
   drawerContentScrollView:{
-    backgroundColor: '#8200d6',
+    backgroundColor: '#474e68', //top drawer color
   },
   imageBackground: {
     padding: 20,
