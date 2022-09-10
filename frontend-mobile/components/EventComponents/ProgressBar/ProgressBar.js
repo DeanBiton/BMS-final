@@ -6,7 +6,8 @@ const maxWidth = 230
 function ProgressBar({current, max}) {
     const barWidth = useRef(new Animated.Value(0)).current;
     const finalWidth = (width);
-    const progressWidth = current/max >= 1 ? maxWidth : (current/max) * maxWidth
+
+    const progressWidth = max===0? maxWidth : current/max >= 1 ? maxWidth : (current/max) * maxWidth
     useEffect(() => {
         Animated.spring(barWidth, {
           toValue: finalWidth,

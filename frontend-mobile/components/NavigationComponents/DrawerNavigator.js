@@ -8,7 +8,7 @@ import MyEventsScreen from '../EventComponents/MyEventsScreen';
 import ProfileScreen from '../ProfileScreen'
 import CustomDrawer from './CustomDrawer';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import headerImage from '../../assets/images/menu-bg.jpeg'
+// import headerImage from '../../assets/images/menu-bg.jpeg'
 
 const Drawer = createDrawerNavigator()
 
@@ -25,16 +25,16 @@ function DrawerNavigator(props) {
     </TouchableOpacity>
   )}
 
-  const setHeaderImage = () => {return(
-    <Image
-        source={headerImage}
-      />
-  )}
+  // const setHeaderImage = () => {return(
+  //   <Image
+  //       source={headerImage}
+  //     />
+  // )}
   
   return (
       <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>}
       screenOptions={options.drawerNavigator}>
-        <Drawer.Screen name="Home" component={HomeScreen} style={{flexDirection: 'row',}} options={{
+        {/* <Drawer.Screen name="Home" component={HomeScreen} style={{flexDirection: 'row',}} options={{
           drawerIcon : ({color}) => (
             <Ionicons name="home-outline" size={22} color={color} style={styles.drawerIcon}/>
           ),
@@ -46,7 +46,7 @@ function DrawerNavigator(props) {
             color: "black",
             left: 100
           },
-        }}/>
+        }}/> */}
         <Drawer.Screen name="Profile" component={ProfileScreen} options={{
           drawerIcon : ({color}) => (
             <Ionicons name="person" size={22} color={color} style={styles.drawerIcon}/>
@@ -93,7 +93,7 @@ function DrawerNavigator(props) {
 const options = {
   drawerNavigator:{
     //headerShown: false,
-    drawerActiveBackgroundColor: '#474e68', //Press color, blue - 0037ff, purple - aa18ea
+    drawerActiveBackgroundColor: '#0037ff', //Press color, blue - 0037ff, purple - aa18ea
     drawerActiveTintColor: '#fff',
     drawerInactiveTintColor: '#333',
     drawerPosition: 'left',
