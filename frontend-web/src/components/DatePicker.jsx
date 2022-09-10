@@ -16,6 +16,7 @@ export default function BasicDatePicker({name,value,setValue,isDisable}) {
           setValue(name,newValue);
         }}
         renderInput={(params) => <TextField {...params} />}
+        inputFormat="DD/MM/YYYY"
       />
     </LocalizationProvider>
   );

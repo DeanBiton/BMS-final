@@ -228,6 +228,7 @@ h3 {
 .card__right{
   float: right;
   margin-right: 5%;
+  margin-top: inherit;
 }
 
 .card__right button {
@@ -404,4 +405,14 @@ input[type="number"] {
   position: absolute;
   bottom: 10px;
   width: -webkit-fill-available
+}
+
+.updateDemendBtns{
+  display: flex;
+  column-gap:10px;
+  justify-content: center
+}
+
+.stat{
+  /* text-align: -webkit-center; */
 }

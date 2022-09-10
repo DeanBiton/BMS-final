@@ -26,7 +26,9 @@ export default function Card(props) {
     const handleClick = () => {
         //<Link to="/event" id={"86"}> </Link>
         navigate('/event',{state:{event_id:props.event._id}});
+        //navigate('/donated',{state:{event_id:props.event._id}});
       };
+
 
       const options = {
         // timeZone:"America/Sao_Paulo",
@@ -60,7 +62,7 @@ export default function Card(props) {
 
                 <button className='btn' onClick={handleClick}>
                  Information
-                </button>            
+                </button>         
             </div>
 
         </div>

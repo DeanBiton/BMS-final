@@ -7,8 +7,9 @@ import { useLocation } from 'react-router-dom'
 import Spinner from '../components/Spinner'
 
 export default function Donate(){
-    // const event_id = useLocation().state.event_id
-    const event_id = '631755adf3cee1ae0cfc64c5'
+     const event_id = useLocation().state.event_id
+     //console.log(event_id)
+    //const event_id = '63178a1253395e0b8d5181c7'
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -42,7 +43,7 @@ export default function Donate(){
 
     // const [renderer, setRenderer] = useState(donations)
 
-    if(isLoading || donations.length===0)
+    if(isLoading )
     {
         return (<Spinner />)
     }

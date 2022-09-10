@@ -39,8 +39,11 @@ export default function Test({eventId, data, handle}){
 return(
     <Paper  className="eventInnerPaper" variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
     <BloodForm formData={formData} handleFunc={handleChange}/>
+    <div className='updateDemendBtns'>
     <Button  variant="contained" onClick={handleOk}>Update</Button>
-    <Button  variant="contained" onClick={()=>handle(false)} >Cancel</Button>
+    <Button  variant="contained" onClick={()=>handle(false)} >Cancel</Button>        
+    </div>
+
     </Paper>
 )
 }

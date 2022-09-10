@@ -45,7 +45,9 @@ export default function DataGridDemo({rows, userId, eventId}) {
     }
     // console.log(parameters)
     dispatch(createDonation(parameters))
-    navigate('/events');
+    //navigate('/events');
+    navigate('/event',{state:{event_id:eventId}});
+
   }
 
   return (
