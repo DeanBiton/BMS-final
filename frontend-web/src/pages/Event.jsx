@@ -63,9 +63,12 @@ function Test(){
         dispatch(deleteEvent(id))
         navigate('/events')
     }
+    function handleDonations(){
+        navigate('/donated',{state:{event_id:event._id}});
+    }
     
      const showButton=  event.status==='Ended'? false:true
-
+     const showUpdateDonation =  event.status==='In progress'? true:false
     return(
         <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
                     <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
@@ -75,9 +78,12 @@ function Test(){
                 <>
          
                 <div className='wrapperRightSide showDemand'>       
-                {showButton &&
+                {showButton && !showUpdateDonation &&
                     <Button variant="contained" onClick={()=>setShowDemand(true)} >Update Demand</Button>
-                } 
+                }
+                {showButton && showUpdateDonation &&
+                    <Button variant="contained" onClick={handleDonations} >Update DOnations</Button>
+                }  
                 </div>
                 <SimpleTable className="eventTable"rows={[
                     {Type:"bloodTypeDonated",...event.bloodTypeDonated},
@@ -87,7 +93,7 @@ function Test(){
         ) : (
             <UpdateDemand  eventId ={event._id}data={event.bloodTypeDemands} handle={()=>setShowDemand(false)}/>
         )}
-        {showButton &&
+        {showButton && !showUpdateDonation &&
               <Button id='deleteEvent' variant="contained" onClick={handleDelete}>Delete Event</Button>
         }
         </Paper>

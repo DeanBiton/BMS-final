@@ -8,12 +8,16 @@ import {
     Tooltip,
     Legend
   } from "recharts";
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 
 export default function DataComposedChart({headers,data}) {
-    console.log(headers[2])
     return (
+      <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
+      <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+    
       <ComposedChart
-        width={800}
+        width={1000}
         height={400}
         data={data}
         margin={{
@@ -33,5 +37,8 @@ export default function DataComposedChart({headers,data}) {
         <Line type="monotone" dataKey={headers[3]} stroke="#ff1300" />
   
       </ComposedChart>
+
+      </Paper>
+    </Container>
     );
   }

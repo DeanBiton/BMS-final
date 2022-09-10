@@ -1,4 +1,6 @@
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer,Cell } from 'recharts';
+import Paper from '@mui/material/Paper';
+import Container from '@mui/material/Container';
 
 function BasicPieChart({dataFirst, dataSecond}){
 
@@ -19,7 +21,11 @@ function BasicPieChart({dataFirst, dataSecond}){
   }
       
 return(
-    
+  <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
+  <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+
+  <div className='stat'>
+
   <PieChart width={1000} height={400}>
     
     <Legend
@@ -75,6 +81,9 @@ return(
     </Pie>
       <Tooltip />
     </PieChart>
+    </div>
+    </Paper>
+    </Container>
 
 )
 }
