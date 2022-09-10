@@ -45,8 +45,8 @@ function MyEventsScreen({navigation}) {
   if(isLoading || isLoadingRegister || isLoadingDonation)
   {
     return(
-      <View>
-        <ActivityIndicator />
+      <View style={styles.loading}>
+        <ActivityIndicator size="large"/>
       </View>
     )
   }
@@ -79,5 +79,9 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     backgroundColor: '#D3D3D3',
     height: '100%',
+  },
+  loading:{
+    height: '100%',
+    justifyContent: 'center',
   },
 });

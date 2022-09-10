@@ -6,7 +6,7 @@ import CustomDrawer from './CustomDrawer';
 import HomeScreen from '../HomeScreen';
 import EventsScreen from '../EventComponents/EventsScreen';
 const Drawer = createDrawerNavigator()
-
+/*
 function AppDrawer() {
 
   return (
@@ -18,4 +18,4 @@ function AppDrawer() {
 }
 
 
-export default AppDrawer
+export default AppDrawer*/

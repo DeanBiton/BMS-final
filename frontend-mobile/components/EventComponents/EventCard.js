@@ -6,10 +6,14 @@ function EventCard(props) {
     const event = props.event.item
     const {navigation} = props
     
+    if(!event)
+      return <></>
+    
     const onPress = () => {
         navigation.navigate('eventScreen', {id: event._id})
     }
     const date = new Date(event.date)
+    const dateText = date.toLocaleDateString('en-GB')
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
     const status = event.status
@@ -32,7 +36,7 @@ function EventCard(props) {
 
         <Text style={styles.text}>{
 `Location: ${event.city}, ${event.address}
-Date: ${date.toLocaleDateString('en-GB')}
+Date: ${dateText}
 Hours: ${timeStart} - ${timeEnd}`
           }
         </Text>

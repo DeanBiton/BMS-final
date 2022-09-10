@@ -54,17 +54,17 @@ function CustomDrawer(props) {
 //    purple: '#8200d6',
 const styles = StyleSheet.create({
   drawerContentScrollView:{
-    backgroundColor: '#474e68', //top drawer color
+    backgroundColor: '#0037ff', //top drawer color
   },
   imageBackground: {
     padding: 20,
   },
   imageHeader: {
-    height: 90, 
-    width: 90, 
+    height: 110, 
+    width: 110, 
     borderRadius: 30, 
-    marginBottom: 10,
-    marginLeft: '33%'
+    marginBottom: 20,
+    marginLeft: '28%'
   },
   userName: {
     color: '#fff',

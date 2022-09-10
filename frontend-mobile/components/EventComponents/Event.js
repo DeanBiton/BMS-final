@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { View, Text, ScrollView, StyleSheet, Dimensions, Image, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView, StyleSheet, Dimensions, Image, ActivityIndicator, Linking, Pressable} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import { createRegister, resetRegisters, deleteRegister } from '../../features/registers/registerSlice'
 import { refreshEvent } from '../../features/events/eventSlice'
@@ -8,7 +8,7 @@ import ProgressBar from './ProgressBar/ProgressBar';
 import CustomButton from '../CustomButton/CustomButton'
 import cities from '../../assets/images/cities/cities'
 import image from '../../assets/images/cities/Modiin.jpg'
-
+import waze from '../../assets/images/waze.png'
 function Event({route}) {
     const {id} = route.params
     
@@ -75,10 +75,10 @@ function Event({route}) {
     //const nextRegisterDate = new Date(nextRegisterDatee.setDay(nextRegisterDatee.getDay()+1))
 
     let type
-    if(user.lastDonated !== null && new Date(event.date) < nextRegisterDate)
-      type = "No permission"
-    else if(status === "Ended")
+    if(status === "Ended")
       type = status
+    else if(user.lastDonated !== null && new Date(event.date) < nextRegisterDate)
+      type = "No permission"
     else if (register === undefined)
       type = register
     else 
@@ -125,11 +125,26 @@ function Event({route}) {
                           </View>
                         )}
                         
-                        
                         {type==="No permission" &&
                         <Text style={styles.message}>
                           Can register from: {nextRegisterDate.toLocaleDateString('en-GB')}
                         </Text>}
+
+                        <View style={{alignItems: 'center',}}>
+                        <Pressable 
+                        onPress={() => Linking.openURL(`https://waze.com/ul?q=${event.address}+${event.city}`)} 
+                        style={styles.wazePressable} 
+                      >
+                        <View style={styles.wazeView}>
+                         <Image
+                        source={waze}
+                        style={styles.wazeImage}
+                        ></Image>
+                        <Text style={styles.wazeText}>Navigate</Text>
+                        </View>
+                      </Pressable>
+                      </View>
+
                     </View>
                 </View>
             </View>
@@ -149,7 +164,7 @@ const styles = StyleSheet.create({
       height: '130%',
       marginTop: 30,
       marginLeft: '5%',
-      paddingBottom: 10,
+      paddingBottom: 5,
     },
     cardContainer: {
         width: deviceWidth - offset,
@@ -228,6 +243,33 @@ const styles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 10,
         color: '#FF0000',
+      },
+      wazePressable:{
+        backgroundColor: '#93c4d3',
+
+        width: '60%',
+        paddingRight: 20,
+        paddingTop: 5,
+        paddingBottom: 5,
+        marginVertical: 5,
+        alignItems: 'center',
+        borderRadius: 5,
+        //flexDirection: 'row'
+      },
+      wazeText:{
+        fontWeight: '500',
+        fontSize: 15,
+        paddingTop: 5,
+        paddingRight: 20,
+      },
+      wazeImage:{
+        height: 35, 
+        width: 35, 
+      },
+      wazeView:{
+        flexDirection: 'row', 
+        height: 30,
+        
       }
 });
 
