@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://192.168.108.78:5000/api/registers/'
+const API_URL = 'https://bloodmanagementsystemapp.herokuapp.com/api/registers/'
 
 // Create new register
 const createRegister = async (registerData, token) => {
