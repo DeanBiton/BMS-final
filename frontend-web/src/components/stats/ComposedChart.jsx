@@ -17,7 +17,7 @@ export default function DataComposedChart({headers,data}) {
       <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
     
       <ComposedChart
-        width={1000}
+        width={800}
         height={400}
         data={data}
         margin={{

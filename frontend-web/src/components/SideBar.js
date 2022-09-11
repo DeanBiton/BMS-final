@@ -35,12 +35,16 @@ export default function SideMenu(){
             </MenuItem >
             <SubMenu title="Statistics" icon={<FaRegChartBar />}>
             <MenuItem>
-            Pie
-            <Link to="/stats/pie" />
+            Blood type ratio
+            <Link to="/stats/pieBloodType" />
             </MenuItem>
             <MenuItem>
-            Chart
-            <Link to="/stats/chart" />
+            Events by city
+            <Link to="/stats/chartCity" />
+            </MenuItem>
+            <MenuItem>
+            Blood type per month
+            <Link to="/stats/chartBloodType" />
             </MenuItem>
             </SubMenu>
             <MenuItem icon={<FaUserEdit />}>
@@ -52,7 +56,7 @@ export default function SideMenu(){
         <div
           className="sidebar-btn-wrapper"
           style={{
-            padding: '20px 24px'
+            padding: '10px 10px'
           }}
         >
           <button

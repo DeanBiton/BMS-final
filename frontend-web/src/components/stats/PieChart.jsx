@@ -26,7 +26,7 @@ return(
 
   <div className='stat'>
 
-  <PieChart width={1000} height={400}>
+  <PieChart width={1000} height={400} >
     
     <Legend
     verticalAlign='top'
@@ -61,7 +61,7 @@ return(
       </Pie>
 
       <text x={700} y={240} textAnchor="middle" dominantBaseline="middle">
-    Registers
+    Donated
    </text>
       <Pie
       
