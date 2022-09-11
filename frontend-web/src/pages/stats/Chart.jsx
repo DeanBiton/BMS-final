@@ -5,6 +5,9 @@ import { useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../../features/events/eventSlice'
 import { useNavigate } from 'react-router-dom'
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+
 
 function Stats(){
   const navigate = useNavigate()
@@ -33,8 +36,41 @@ function Stats(){
     }
   }, [user, navigate, isError, message, dispatch])
 
+
+  const options = [...new Set(events.map(event => event.city))]; // [ 'A', 'B']
+
+  // const options = events.map((event) => {
+  //   return(
+  //     {'city': event.city}
+  //   )
+  // })
+  console.log(options[0])
+  const [city, setCity] = useState(undefined)
+
+// console.log(unique)
+// console.log(chartData(events))
 return(
-    <DataComposedChart headers={['id','demand','registers','donate']} data= {chartData(events)}/>
+  <div id="cityChart">
+  <TextField
+          name='city'
+          id="selectCityChart"
+          select
+          label="Select"
+          value={city}
+          onChange={(event) => setCity(event.target.value)}
+          helperText="Please select city"
+        >
+            {options.map((option) => (
+            <MenuItem key={option} value={option}>
+              {option}
+            </MenuItem>
+          ))}
+        </TextField>
+        {
+          city && 
+              <DataComposedChart headers={['id','demand','registers','donate']} data= {chartCityData(events,city)} />
+        }
+  </div>
 )
 }
 export default Stats
@@ -44,6 +80,22 @@ function chartData(events){
       events.map(event => {
         return (
             {id : event._id,
+              registers : Object.values(event.bloodTypeRegisters).reduce((a, b) => a + b),
+              demand : Object.values(event.bloodTypeDemands).reduce((a, b) => a + b),
+              donate : Object.values(event.bloodTypeDonated).reduce((a, b) => a + b)
+            } 
+        )
+    })  
+    )
+  }
+
+  function chartCityData(events,city){
+    return (
+
+      events.filter(event=>event.city===city).map(event => {
+        return (
+            {id : `${event.date.substring(0,7)}
+            ${event.timeStart.substring(11,16)}-${event.timeEnd.substring(11,16)}`,
               registers : Object.values(event.bloodTypeRegisters).reduce((a, b) => a + b),
               demand : Object.values(event.bloodTypeDemands).reduce((a, b) => a + b),
               donate : Object.values(event.bloodTypeDonated).reduce((a, b) => a + b)
