@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Donation = require('../models/donationModel')
 const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
-const BloodTypeTrack = require('../models/BloodTypeTrackModel')
+const BloodTypeTrack = require('../models/bloodTypeTrackModel')
 const User = require('../models/userModel')
 const Register = require('../models/registerModel')
 
