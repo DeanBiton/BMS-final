@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler')
 const Register = require('../models/registerModel')
 const helper = require('./controllerHelper/helper')
 const Event = require('../models/eventModel')
-const BloodTypeTrack = require('../models/BloodTypeTrackModel')
+const BloodTypeTrack = require('../models/bloodTypeTrackModel')
 
 // @desc Get all Events registered
 // @route GET /api/registers
