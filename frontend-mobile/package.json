@@ -30,7 +30,8 @@
     "react-router-native": "^6.3.0",
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
-    "remote-redux-devtools": "^0.5.16"
+    "remote-redux-devtools": "^0.5.16",
+    "expo-updates": "~0.14.5"
   },
   "devDependencies": {
     "@babel/core": "^7.18.6"

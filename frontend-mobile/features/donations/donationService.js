@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'http://192.168.108.78:5000/api/donations/'
+const API_URL = 'https://bloodmanagementsystemapp.herokuapp.com/api/donations/'
 
 // Create new donation
 const createDonation = async (donationData, token) => {

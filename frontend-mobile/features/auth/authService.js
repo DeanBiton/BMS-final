@@ -1,7 +1,7 @@
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const API_URL = 'http://192.168.108.78:5000/api/users/'
+const API_URL = 'https://bloodmanagementsystemapp.herokuapp.com/api/users/'
 
 // SetUser
 // const getUser = async () => {
