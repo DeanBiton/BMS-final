@@ -130,9 +130,6 @@ export default function Checkout() {
       </AppBar>
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-          {/* <Typography component="h1" variant="h4" align="center">
-            New Envent
-          </Typography> */}
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5, px:8 }}>
             {steps.map((label) => (
               <Step key={label}>
@@ -147,7 +144,7 @@ export default function Checkout() {
                   New event has created!
                 </Typography>
                 <Typography variant="subtitle1">
-                  For viewing event page please click here.
+                  For viewing event please check events list.
                 </Typography>
               </React.Fragment>
             ) : (

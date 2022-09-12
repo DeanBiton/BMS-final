@@ -34,8 +34,8 @@ function Stats(){
     }
   }, [user, navigate, isError, message, dispatch])
 
-return(
-    <BasicPieChart dataFirst= {pieData(events,'bloodTypeDemands')} dataSecond={pieData(events,'bloodTypeDonated')}/>
+  return(
+    <BasicPieChart dataFirst= {pieData(events,'bloodTypeDemands')} dataSecond={pieData(events,'bloodTypeDonated').slice(0, -1)}/>
 )
 }
 export default Stats

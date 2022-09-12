@@ -136,9 +136,6 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Blood type has updated!
                 </Typography>
-                {/* <Typography variant="subtitle1">
-                  For viewing event page please click here.
-                </Typography> */}
               </React.Fragment>
             ) : (
               <React.Fragment>

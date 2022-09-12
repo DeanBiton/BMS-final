@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 
 function BasicPieChart({dataFirst, dataSecond}){
 
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042","#A52A2A","#8A2BE2","#2F4F4F","#808080"];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
     cx, cy, midAngle, innerRadius, outerRadius, percent, index,

@@ -86,9 +86,9 @@ function Test(){
                 }  
                 </div>
                 <SimpleTable className="eventTable"rows={[
-                    {Type:"bloodTypeDonated",...event.bloodTypeDonated},
-                    {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
-                    {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
+                    {Type:"Donated",...event.bloodTypeDonated},
+                    {Type:"Registers",...event.bloodTypeRegisters},
+                    {Type:"Demands",...event.bloodTypeDemands}]}/>
                 </>
         ) : (
             <UpdateDemand  eventId ={event._id}data={event.bloodTypeDemands} handle={()=>setShowDemand(false)}/>
