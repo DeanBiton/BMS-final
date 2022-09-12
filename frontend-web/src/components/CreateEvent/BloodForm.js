@@ -29,9 +29,6 @@ export default function PaymentForm({formData,handleFunc}) {
 
   return (
     <React.Fragment>
-      {/* <Typography variant="h6" gutterBottom>
-        Payment method
-      </Typography> */}
       <Grid container spacing={0} >
         {itemElements}
       </Grid>

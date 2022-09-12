@@ -24,7 +24,6 @@ function DonationForm() {
     function handleSubmit1(event) {
         event.preventDefault()
         dispatch(createDonation(formData1))
-        console.log(formData1)
     }
 
     const [formData2, setFormData2] = useState(
@@ -46,7 +45,6 @@ function DonationForm() {
     function handleSubmit2(event) {
         event.preventDefault()
         dispatch(deleteDonation(formData3))
-        console.log(formData3)
     }
     
     const [formData3, setFormData3] = useState(
@@ -68,7 +66,6 @@ function DonationForm() {
     function handleSubmit3(event) {
         event.preventDefault()
         dispatch(getEventRegisters(formData3))
-        console.log(formData3)
     }
 
     return (

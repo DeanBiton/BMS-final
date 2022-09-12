@@ -1,4 +1,3 @@
-// import "./styles.css";
 import React from "react";
 import {
   BarChart,
@@ -11,47 +10,6 @@ import {
 } from "recharts";
 import Paper from '@mui/material/Paper';
 import Container from '@mui/material/Container';
-const data = [
-
-
-  {
-    date: "2000-04",
-    uv: 2780,
-    pv: 3908,
-  },
-  {
-    date: "2000-05",
-    uv: 1890,
-    pv: 4800,
-  },
-  {
-    date: "2000-06",
-    uv: 2390,
-    pv: 3800,
-  },
-  {
-    date: "2000-07",
-    uv: 3490,
-    pv: 4300,
-  },
-  {
-    date: "2000-08",
-    uv: 4000,
-    pv: 2400,
-  },
-  {
-    date: "2000-09",
-    uv: 3000,
-    pv: 1398,
-  },
-  {
-    date: "2000-10",
-    uv: 2000,
-    pv: 9800,
-  },
-
-];
- console.log(data)
 
 const monthTickFormatter = (tick) => {
   const date = new Date(tick);

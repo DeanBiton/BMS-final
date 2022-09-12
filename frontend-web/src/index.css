@@ -320,6 +320,10 @@ h3 {
     -webkit-text-fill-color: rgb(0, 0, 0) !important;
 }
 
+.css-mnn31.Mui-disabled{
+  opacity: 1;
+  -webkit-text-fill-color: rgb(0 0 0);
+}
 
 /* .css-11xur9t-MuiPaper-root-MuiTableContainer-root{
   margin-top: 10%;

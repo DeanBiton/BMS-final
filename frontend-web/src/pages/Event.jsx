@@ -1,15 +1,12 @@
 import AddressForm from '../components/CreateEvent/AddressForm';
-import BloodForm from '../components/CreateEvent/BloodForm'
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
-import Popover from '@mui/material/Popover';
 import { useLocation } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import SimpleTable from "../components/Table"
 import { useState, useEffect } from 'react'
 import UpdateDemand from '../components/UpdateDemand'
-import { refreshEvent } from '../features/events/eventSlice';
 import Spinner from '../components/Spinner'
 import { getEvents, deleteEvent, reset } from '../features/events/eventSlice'
 
@@ -31,7 +28,6 @@ function Test(){
         console.log(message)
         }
         
-        console.log("im here")
         if (!user) {
         navigate('/login')
         }
@@ -71,7 +67,7 @@ function Test(){
      const showUpdateDonation =  event.status==='In progress'? true:false
     return(
         <Container component="main" maxWidth="m" sx={{ mb: 4 }}>
-                    <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
+        <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
 
         <AddressForm formData={event} handleFunc={undefined} handleDateTimeFunc={undefined} isDisable={true} />
         {!showDemand? (
@@ -86,9 +82,9 @@ function Test(){
                 }  
                 </div>
                 <SimpleTable className="eventTable"rows={[
-                    {Type:"bloodTypeDonated",...event.bloodTypeDonated},
-                    {Type:"BloodTypeRegisters",...event.bloodTypeRegisters},
-                    {Type:"BloodTypeDemands",...event.bloodTypeDemands}]}/>
+                    {Type:"Donated",...event.bloodTypeDonated},
+                    {Type:"Registers",...event.bloodTypeRegisters},
+                    {Type:"Demands",...event.bloodTypeDemands}]}/>
                 </>
         ) : (
             <UpdateDemand  eventId ={event._id}data={event.bloodTypeDemands} handle={()=>setShowDemand(false)}/>

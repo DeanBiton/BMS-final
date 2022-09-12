@@ -5,19 +5,14 @@ import Header from './components/Header'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Events from './pages/Events'
-import Create from './pages/Create'
-import Stats from './pages/Stats'
-import SignInSide from './pages/SignInSide'
-import Test from './pages/test'
 import SideBar from './components/SideBar'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import Pie from './pages/stats/Pie'
 import Chart from './pages/stats/Chart'
 import Event from './pages/Event'
 import NewEvent from './components/CreateEvent/NewEvent'
 import Donate from './pages/Donate'
 import BloodUpdate from './components/BloodTypeUpdate/BloodUpdate'
-import Donations from './components/DeanTests/Donation/Donations'
 import ChartQuarters from './pages/stats/ChartQuarters'
 
 function App() {
@@ -40,12 +35,9 @@ function App() {
               <Route path='/events' element={<Events />} />
               <Route path='/event' element={<Event />} />
               <Route path='/create' element={<NewEvent />} />
-              <Route path='/stats' element={<Stats />} />
               <Route path='/stats/pieBloodType' element={<Pie />} />
               <Route path='/stats/chartCity' element={<Chart />} />
               <Route path='/stats/chartBloodType' element={<ChartQuarters />} />
-              <Route path='/test' element={<Test />} />
-              <Route path='/signin' element={<SignInSide />} />
               <Route path='/donated' element={<Donate />} />
               <Route path='/bloodTypeUpdate' element={<BloodUpdate />} />
             </Routes>
