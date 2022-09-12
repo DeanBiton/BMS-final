@@ -26,6 +26,12 @@ function Event({route}) {
     if(!events)
       return <></>
     
+      const dateFormat = (date) => {
+        let dateText = date.toLocaleDateString()
+        dateText = dateText.substring(3,6) + dateText.substring(0,3) + dateText.substring(6,8)
+        return dateText
+      }
+
     const [event, setEvent] = useState(events.find((event) => event._id === id))
     const [rerender, setRerender] = useState(false);
 
@@ -52,7 +58,8 @@ function Event({route}) {
         }
     }   
     // Event
-    const date = new Date(event.date).toLocaleDateString('en-GB')
+    let date = new Date(event.date).toLocaleDateString()
+    date = date.substring(3,6) + date.substring(0,3) + date.substring(6,8)
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
     const status = event.status
@@ -127,7 +134,7 @@ function Event({route}) {
                         
                         {type==="No permission" &&
                         <Text style={styles.message}>
-                          Can register from: {nextRegisterDate.toLocaleDateString('en-GB')}
+                          Can register from: {dateFormat(nextRegisterDate)}
                         </Text>}
 
                         <View style={{alignItems: 'center',}}>

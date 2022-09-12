@@ -13,7 +13,8 @@ function EventCard(props) {
         navigation.navigate('eventScreen', {id: event._id})
     }
     const date = new Date(event.date)
-    const dateText = date.toLocaleDateString('en-GB')
+    let dateText = date.toLocaleDateString()
+    dateText = dateText.substring(3,6) + dateText.substring(0,3) + dateText.substring(6,8)
     const timeStart = new Date(event.timeStart).toLocaleTimeString().substring(0,5)
     const timeEnd = new Date(event.timeEnd).toLocaleTimeString().substring(0,5)
     const status = event.status
@@ -92,7 +93,7 @@ const styles = StyleSheet.create({
     fontFamily: 'sans-serif',
     marginBottom: 4,
     color: '#000000',
-    width: '75%'
+    width: '81%'
   }
 });
 
