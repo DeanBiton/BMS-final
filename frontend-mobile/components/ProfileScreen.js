@@ -21,12 +21,18 @@ function ProfileScreen() {
     return <></>
   }
   
+  const dateFormat = (date) => {
+    let dateText = date.toLocaleDateString()
+    dateText = dateText.substring(3,6) + dateText.substring(0,3) + dateText.substring(6,8)
+    return dateText
+  }
+
   const date = new Date(user.lastDonated)
   const date2 = new Date(user.lastDonated)
-  const nextRegisterDate = new Date(date.setMonth(date.getMonth()+3))
-  const bloodInsuranceDate = new Date(date2.setFullYear(date2.getFullYear()+1))
-  nextRegisterDateText = nextRegisterDate < today ? "Any" : nextRegisterDate.toLocaleDateString('en-GB')
-  bloodInsuranceDateText = bloodInsuranceDate < today ? "Any" : bloodInsuranceDate.toLocaleDateString('en-GB')
+  let nextRegisterDate = new Date(date.setMonth(date.getMonth()+3))
+  let bloodInsuranceDate = new Date(date2.setFullYear(date2.getFullYear()+1))
+  nextRegisterDateText = nextRegisterDate < today ? "Any" : dateFormat(nextRegisterDate)
+  bloodInsuranceDateText = bloodInsuranceDate < today ? "Any" : dateFormat(bloodInsuranceDate)
   
   return (
     <View style={styles.container}>
