@@ -1,4 +1,3 @@
-import DataComposedChart from "../../components/stats/ComposedChart";
 import * as React from 'react';
 import { useEffect } from "react";
 import { useState } from "react";
@@ -36,17 +35,10 @@ function Stats(){
     }
   }, [user, navigate, isError, message, dispatch])
 
-
-//   const options = [...new Set(events.map(event => event.city))]; // [ 'A', 'B']
-
   const options = ['A+','A-','B+','B-','AB+','AB-','O+','O-']
 
-  console.log(options[0])
   const [bloodType, setBloodType] = useState(undefined)
 
-//   console.log(chartData(events,"A+"))
-// console.log(unique)
-// console.log(chartData(events))
 return(
   <div id="cityChart">
   <TextField
@@ -66,7 +58,6 @@ return(
         </TextField>
         {
           bloodType &&
-            //   <DataComposedChart headers={['id','demand','registers','donate']} data= {chartCityData(events,city)} />
              <ChartQ data = {chartData(events,bloodType)}/>
       }
   </div>

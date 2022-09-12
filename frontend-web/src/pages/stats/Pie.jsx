@@ -1,8 +1,6 @@
 import BasicPieChart from "../../components/stats/PieChart";
 import * as React from 'react';
 import { useEffect } from "react";
-import { useState } from "react";
-
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../../features/events/eventSlice'
 import { useNavigate } from 'react-router-dom'
@@ -39,7 +37,6 @@ function Stats(){
 )
 }
 export default Stats
-
 
 function pieData(events,type){
 

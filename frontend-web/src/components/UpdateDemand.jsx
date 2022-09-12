@@ -2,7 +2,7 @@ import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
 import BloodForm from '../components/CreateEvent/BloodForm'
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { updateEvent } from '../features/events/eventSlice'
 
 

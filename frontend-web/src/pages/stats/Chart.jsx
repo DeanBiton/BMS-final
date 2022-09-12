@@ -37,18 +37,10 @@ function Stats(){
   }, [user, navigate, isError, message, dispatch])
 
 
-  const options = [...new Set(events.map(event => event.city))]; // [ 'A', 'B']
+  const options = [...new Set(events.map(event => event.city))];
 
-  // const options = events.map((event) => {
-  //   return(
-  //     {'city': event.city}
-  //   )
-  // })
-  console.log(options[0])
   const [city, setCity] = useState(undefined)
 
-// console.log(unique)
-// console.log(chartData(events))
 return(
   <div id="cityChart">
   <TextField
@@ -74,20 +66,6 @@ return(
 )
 }
 export default Stats
-
-function chartData(events){
-    return (
-      events.map(event => {
-        return (
-            {id : event._id,
-              registers : Object.values(event.bloodTypeRegisters).reduce((a, b) => a + b),
-              demand : Object.values(event.bloodTypeDemands).reduce((a, b) => a + b),
-              donate : Object.values(event.bloodTypeDonated).reduce((a, b) => a + b)
-            } 
-        )
-    })  
-    )
-  }
 
   function chartCityData(events,city){
     return (

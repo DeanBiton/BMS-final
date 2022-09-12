@@ -1,9 +1,7 @@
 import React from "react"
 import { useNavigate } from 'react-router-dom'
-import Typography from '@mui/material/Typography';
-import { FaSignInAlt,FaMapMarkerAlt, FaRegClock,FaRegCalendar } from 'react-icons/fa'
+import { FaMapMarkerAlt, FaRegClock,FaRegCalendar } from 'react-icons/fa'
 import { Box } from "@mui/material";
-import Avatar from '@mui/material/Avatar';
 
 const shapeStyles = { bgcolor: 'primary.main', width: 40, height: 40 };
 const shapeCircleStyles = { borderRadius: '50%' };
@@ -21,17 +19,13 @@ const circle = (
   }
 
 export default function Card(props) {
-    //console.log(props)
     const navigate = useNavigate()
     const handleClick = () => {
-        //<Link to="/event" id={"86"}> </Link>
         navigate('/event',{state:{event_id:props.event._id}});
-        //navigate('/donated',{state:{event_id:props.event._id}});
       };
 
 
       const options = {
-        // timeZone:"America/Sao_Paulo",
         hour12 : false,
         hour:  "2-digit",
         minute: "2-digit",
@@ -57,7 +51,6 @@ export default function Card(props) {
                   </div>     
             </div>
 
-            {/* <button onClick={handleClick}>info</button> */}
             <div className="card__right">
 
                 <button className='btn' onClick={handleClick}>

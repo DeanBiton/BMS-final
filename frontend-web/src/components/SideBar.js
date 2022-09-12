@@ -2,7 +2,7 @@ import { ProSidebar, Menu, MenuItem, SubMenu, SidebarHeader, SidebarFooter } fro
 import 'react-pro-sidebar/dist/css/styles.css';
 import { Link, useNavigate } from 'react-router-dom';
 import {FaRegCalendarAlt, FaRegCalendarPlus, FaRegChartBar, FaSignOutAlt,FaUserEdit} from 'react-icons/fa'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { logout, reset } from '../features/auth/authSlice'
 import logo from '../assets/logo.jpeg'
 
@@ -18,9 +18,7 @@ export default function SideMenu(){
     return (
         <ProSidebar>
          
-
         <SidebarHeader>
-            {/* <h1>B.M.S</h1> */}
             <img  id='logoSideBar' src={logo}/>
         </SidebarHeader>
 

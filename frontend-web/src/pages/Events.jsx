@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react'
 import Card from "../components/Card"
-import data from "../dummy/Events"
 import { useSelector, useDispatch } from 'react-redux'
 import { getEvents, reset } from '../features/events/eventSlice'
 import { useNavigate } from 'react-router-dom'
-
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormHelperText from '@mui/material/FormHelperText';
 import Switch from '@mui/material/Switch';
 import Spinner from '../components/Spinner'
 

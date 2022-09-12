@@ -35,7 +35,6 @@ export default function DataGridDemo({rows, userId, eventId}) {
     const [selectionModel, setSelectionModel] = React.useState(() =>
     rows.filter((r) => r.isDonated===true).map((r) => r._id),
   );
-  console.log(selectionModel)
 
   function handleClick(){
     const parameters = {
@@ -43,9 +42,7 @@ export default function DataGridDemo({rows, userId, eventId}) {
       usersId:selectionModel,
       eventId:eventId
     }
-    // console.log(parameters)
     dispatch(createDonation(parameters))
-    //navigate('/events');
     navigate('/event',{state:{event_id:eventId}});
 
   }
